@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPC OS — Chân dung khách hàng (tóm tắt)</title>
+<style>
+  :root{
+    --bg:#0f1117; --card:#181b24; --card2:#1f2330; --line:#2a2f3e;
+    --text:#e8eaf0; --muted:#9aa1b2;
+    --a:#f7b84f; --b:#4f8ef7; --c:#4fd1a5; --d:#c97ff5;
+    --red:#f06a6a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);padding:32px 20px;line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-size:26px;margin-bottom:4px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .core{background:linear-gradient(135deg,#1c2740,#181b24);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:28px;text-align:center}
+  .core .msg{font-size:18px;font-weight:600}
+  .core .note{color:var(--muted);font-size:13px;margin-top:6px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:28px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;border-top:4px solid var(--ac)}
+  .card.A{--ac:var(--a)} .card.B{--ac:var(--b)} .card.C{--ac:var(--c)} .card.D{--ac:var(--d)}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ac);background:color-mix(in srgb,var(--ac) 15%,transparent);border-radius:20px;padding:3px 10px;margin-bottom:8px}
+  .card h2{font-size:17px;margin-bottom:2px}
+  .role{font-size:12.5px;color:var(--muted);margin-bottom:12px;font-style:italic}
+  .row{margin-bottom:10px}
+  .lbl{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+  .val{font-size:13.5px}
+  .pain{color:#ffb4b4}
+  .path{font-size:13px;background:var(--card2);border-radius:8px;padding:7px 10px;margin-top:4px}
+  .hook{font-size:13px;font-style:italic;color:var(--muted);border-left:3px solid var(--ac);padding-left:10px;margin-top:10px}
+  h3.sec{font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:8px 0 12px}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;font-size:13px;margin-bottom:28px}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:var(--card2);font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  td:first-child{color:var(--muted);font-weight:600;white-space:nowrap}
+  .cA{color:var(--a);font-weight:700}.cB{color:var(--b);font-weight:700}.cC{color:var(--c);font-weight:700}.cD{color:var(--d);font-weight:700}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:28px;font-size:13px}
+  .step{background:var(--card2);border-radius:8px;padding:8px 12px;text-align:center}
+  .step small{display:block;color:var(--muted);font-size:11px}
+  .arr{color:var(--muted)}
+  .anti{background:color-mix(in srgb,var(--red) 8%,var(--card));border:1px solid color-mix(in srgb,var(--red) 35%,var(--line));border-radius:14px;padding:16px 20px;margin-bottom:28px}
+  .anti h3{color:var(--red);font-size:14px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+  .anti li{font-size:13.5px;margin-left:18px;margin-bottom:4px}
+  .foot{color:var(--muted);font-size:12px;text-align:center}
+  @media print{body{background:#fff;color:#111} .card,.core,table,.flow,.anti{border-color:#ddd;background:#fff} .sub,.foot,.role,.lbl,.hook,.arr,th,td:first-child{color:#555}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>OPC OS — Chân dung khách hàng</h1>
+  <div class="sub">Tóm tắt v1.3 · cập nhật 12/06/2026 · <b>Nhãn mới: A = CEO doanh nghiệp SME · B = Solopreneur</b> · Chi tiết: <code>customer_avatars_v1.md</code> (v1.2) + <code>customer_pains_objections_v1.md</code> (v1.2)</div>
+
+  <div class="core">
+    <div class="msg">MỘT lane: One-Person Company · Thông điệp CEO-FIRST — nhóm A (CEO SME) là tâm, B ăn theo</div>
+    <div class="note">Chốt 12/06: từ khóa "CEO" làm chính (A = nhóm có tiền nhất); B (solopreneur) tự thấy "mình cũng là CEO của chính mình"; C/D không có thông điệp riêng — khi ra riêng họ quy về B. Không xoay thông điệp mỗi ngày một nhóm. Nỗi đau gốc chung: thiếu <b>bộ máy</b>, không phải thiếu AI. <b>A</b> = quá tải thông tin + quyết định + giám sát · <b>B</b> = quá tải thực thi · cả hai FOMO AI nặng.</div>
+  </div>
+
+  <h3 class="sec">4 nhóm khách</h3>
+  <div class="grid">
+
+    <div class="card A">
+      <span class="tag">A · Tâm thông điệp + Tiền lớn</span>
+      <h2>CEO doanh nghiệp SME</h2>
+      <div class="role">Founder 5–50 người, chủ phòng khám/chuỗi (lead bác sĩ) · 35–55t · chi 30–200tr</div>
+      <div class="row"><span class="lbl">Đau số 1</span><span class="val pain">Mọi quyết định xếp hàng chờ một người — chính họ là cổ chai</span></div>
+      <div class="row"><span class="lbl">Nhu cầu gốc (12/06)</span><span class="val">Quá tải thông tin + quyết định + giám sát — "thiếu team chất lượng cao"</span></div>
+      <div class="row"><span class="lbl">Dream</span><span class="val">"Lần đầu nhìn thấy toàn bộ công ty trong một chỗ" — brief sáng, meeting tự thành task</span></div>
+      <div class="row"><span class="lbl">Objection lõi</span><span class="val">"Proof đâu? Ai chịu trách nhiệm? Dữ liệu an toàn không?"</span></div>
+      <div class="row"><span class="lbl">Sợ ngầm</span><span class="val">Lộ dữ liệu (tài sản đời người) · quê trước team nếu dự án AI thất bại · phụ thuộc vendor nhỏ</span></div>
+      <div class="row"><span class="lbl">First-win</span><span class="val">Brief điều hành / meeting→task. KHÔNG demo content</span></div>
+      <div class="path">Demo 1-1 → <b>Premium ~80tr</b> hoặc <b>~100tr</b> (phân quyền/agent team chỉ ở 100tr) → Success Club (ý tưởng)</div>
+      <div class="hook">"Anh có team. Nhưng ai là người phải nhớ tất cả? Vẫn là anh."</div>
+    </div>
+
+    <div class="card B">
+      <span class="tag">B · Volume + Proof · ăn theo CEO</span>
+      <h2>Solopreneur / Solo CEO</h2>
+      <div class="role">Coach, bán hàng online, dịch vụ 1 người · 28–45t · chi 500k–30tr</div>
+      <div class="row"><span class="lbl">Đau số 1</span><span class="val pain">Content ngốn 2–3h/ngày · nghỉ 1 ngày là doanh thu đứng</span></div>
+      <div class="row"><span class="lbl">Nhu cầu gốc (12/06)</span><span class="val">Quá tải thực thi — việc gì cũng đến tay</span></div>
+      <div class="row"><span class="lbl">Dream</span><span class="val">"Có team mà không phải nuôi team" — sáng mở máy đã có brief + bài đúng giọng chờ duyệt</span></div>
+      <div class="row"><span class="lbl">Objection lõi</span><span class="val">"Khác gì ChatGPT?"</span></div>
+      <div class="row"><span class="lbl">Sợ ngầm</span><span class="val">Xấu hổ nếu cài không nổi → "cài giúp tận tay" mạnh hơn "hoàn tiền" · sợ AI làm giả giọng thương hiệu</span></div>
+      <div class="row"><span class="lbl">First-win</span><span class="val">Bài viết đúng giọng ngay ngày đầu</span></div>
+      <div class="path">Webinar → <b>T2 500k</b> → upsell T2+ 2tr (startup kit + mentors) → Pro 30tr → Club</div>
+      <div class="hook">"Bạn không cần thêm một khóa học AI. Bạn cần một bộ máy tự chạy."</div>
+    </div>
+
+    <div class="card C">
+      <span class="tag">C · Referral lên A</span>
+      <h2>Quản lý cấp trung</h2>
+      <div class="role">Trưởng phòng, team lead · 28–40t · mua tiền túi, quyết nhanh · 250k–2tr</div>
+      <div class="row"><span class="lbl">Đau số 1</span><span class="val pain">Báo cáo &amp; tổng hợp ăn hết giờ làm "việc thật"</span></div>
+      <div class="row"><span class="lbl">Dream</span><span class="val">Thành người "deliver nhanh khác thường" — và bộ máy đi theo mình nếu ra riêng</span></div>
+      <div class="row"><span class="lbl">Objection lõi</span><span class="val">"Đáng tiền túi không?" → quy ra giờ tiết kiệm/tuần</span></div>
+      <div class="row"><span class="lbl">Sợ ngầm</span><span class="val">Vi phạm quy định dữ liệu công ty (→ vẽ ranh giới hộ) · bị coi là "ăn gian" nếu sếp biết</span></div>
+      <div class="row"><span class="lbl">First-win</span><span class="val">Khung báo cáo từ dữ liệu mẫu</span></div>
+      <div class="path">T1 250k → <b>T2 500k</b> → T2+ 2tr khi ra riêng · Khi sếp hỏi "làm kiểu gì nhanh thế" → dẫn vào nhóm A</div>
+      <div class="hook">"KPI là của bạn. Thời gian làm việc thật của bạn đâu — hay chui hết vào báo cáo?"</div>
+    </div>
+
+    <div class="card D">
+      <span class="tag">D · Vườn ươm nhóm B</span>
+      <h2>Full-time + dự án riêng</h2>
+      <div class="role">Đi làm + side project · 24–35t · chỉ có 2–3h buổi tối · 0–750k</div>
+      <div class="row"><span class="lbl">Đau số 1</span><span class="val pain">Không đủ giờ — dream lớn, slot 2 tiếng/tối, tiến độ rùa bò</span></div>
+      <div class="row"><span class="lbl">Dream</span><span class="val">Side project chạy đều cả tuần bận → đủ thu nhập để nghỉ việc (thành nhóm B)</span></div>
+      <div class="row"><span class="lbl">Objection lõi</span><span class="val">"Guide free đầy mạng" → free = vài buổi tối tự gỡ lỗi; 250k mua lại chính những buổi tối đó</span></div>
+      <div class="row"><span class="lbl">Sợ ngầm</span><span class="val">Thêm một lần bỏ cuộc = bằng chứng "mình không làm được" → sản phẩm phải duy trì HỌ, không phải ngược lại</span></div>
+      <div class="row"><span class="lbl">First-win</span><span class="val">Output thật ngay TỐI ĐẦU TIÊN — chờ đến mai là nguội</span></div>
+      <div class="path">Free PDF/community → <b>T1 250k</b> (kèm video + diagram) → T2 500k · group Telegram riêng người đã mua · đừng upsell sớm</div>
+      <div class="hook">"Bạn có 2 tiếng mỗi tối cho giấc mơ của mình. Đừng tiêu nó vào việc một bộ máy làm được."</div>
+    </div>
+  </div>
+
+  <h3 class="sec">Dòng chảy giữa các nhóm</h3>
+  <div class="flow">
+    <div class="step"><span class="cD">D</span><small>free → T1 → T2</small></div>
+    <span class="arr">— side project thành business chính →</span>
+    <div class="step"><span class="cB">B</span><small>T2 → T2+ → Pro 30tr → Club</small></div>
+    <span class="arr">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+    <div class="step"><span class="cC">C</span><small>T1/T2 → T2+ khi ra riêng</small></div>
+    <span class="arr">— "sếp ơi, em dùng cái này" →</span>
+    <div class="step"><span class="cA">A</span><small>demo 1-1 → Premium ~80/~100tr</small></div>
+  </div>
+
+  <h3 class="sec">Bản đồ đau 3 lớp — copy chạm lớp 1: dừng xem · lớp 2: lưu bài · lớp 3 (identity): mua</h3>
+  <table>
+    <tr><th>Lớp identity (sâu nhất)</th><th class="cA">A · CEO SME</th><th class="cB">B · Solopreneur</th><th class="cC">C</th><th class="cD">D</th></tr>
+    <tr><td>Câu họ tự nói với mình</td>
+      <td>"Công ty chỉ lớn bằng số giờ tôi thức — tôi là cổ chai của giấc mơ mình"</td>
+      <td>"Mở công ty để tự do — giờ làm thuê cho chính mình"</td>
+      <td>"Bán thời gian cho KPI người khác — không có gì là CỦA MÌNH"</td>
+      <td>"Dự án là lối thoát khỏi đời làm thuê — mà mình đang phụ lòng nó"</td></tr>
+    <tr><td>Vấn đề gốc (root)</td>
+      <td>Công ty không có hệ thần kinh trung ương — mọi thứ qua não CEO</td>
+      <td>Mọi quy trình sống trong đầu một người</td>
+      <td>Đau kép: việc (báo cáo) + identity (không gì của riêng mình)</td>
+      <td>Ràng buộc cứng là GIỜ — quy mọi pitch về "buổi tối"</td></tr>
+  </table>
+
+  <h3 class="sec">Objection phổ quát (cả 4 nhóm) — câu trả lời chuẩn hóa</h3>
+  <table>
+    <tr><th>Khách nói</th><th>Trả lời chuẩn (thuộc lòng — không tự chế biến thể)</th></tr>
+    <tr><td>"Khác gì ChatGPT?"</td><td>"ChatGPT là nhân viên giỏi nhưng mất trí nhớ mỗi sáng, chỉ làm khi bạn ngồi gõ. Đây là cả một công ty: nhớ mọi quyết định, tự chạy 24/7, hành động được thật."</td></tr>
+    <tr><td>"Chi phí ẩn?"</td><td>Nói TRƯỚC khi bị hỏi: box chi phí số thật — "tài khoản của bạn, trả thẳng nhà cung cấp, không qua chúng tôi".</td></tr>
+    <tr><td>"Proof đâu?"</td><td>Build-in-public + demo trên dữ liệu thật của khách + guarantee theo tầng. KHÔNG bịa testimonial.</td></tr>
+    <tr><td>"Để sau"</td><td>Chỉ urgency thật (suất founding, deadline thật). Không có thì thả về free community, đừng ép.</td></tr>
+  </table>
+
+  <h3 class="sec">Asset backlog rút từ objections (làm trước khi scale ads)</h3>
+  <div class="flow" style="justify-content:flex-start;text-align:left">
+    <div class="step"><b>1.</b> Trang "Dữ liệu &amp; quyền sở hữu"<small>TRƯỚC khi chào lead bác sĩ (A)</small></div>
+    <div class="step"><b>2.</b> Video demo 90s + video cài 15' không cắt<small>diệt O1/O2 nhóm B</small></div>
+    <div class="step"><b>3.</b> Box chi phí số thật<small>B + D</small></div>
+    <div class="step"><b>4.</b> First-win ngày đầu<small>B + D (D: ngay tối đầu)</small></div>
+    <div class="step"><b>5.</b> Q&amp;A kỹ thuật cho IT<small>nhóm A</small></div>
+    <div class="step"><b>6.</b> Calculator giờ tiết kiệm<small>nhóm C</small></div>
+    <div class="step"><b>7.</b> Câu qualify chặn-trước-khi-bán<small>nhóm D, giảm refund</small></div>
+    <div class="step"><b>8.</b> Group Telegram người đã mua<small>add tự động khi thanh toán</small></div>
+    <div class="step"><b>9.</b> Diagram + video trong mọi tài liệu<small>khách non-tech hơn dự kiến</small></div>
+  </div>
+
+  <div class="anti">
+    <h3>Anti-avatar — đừng tốn sức</h3>
+    <ul>
+      <li><b>AI hobbyist</b> — học cho biết, không vận hành gì → mua khóa học, không mua bộ máy.</li>
+      <li><b>Dev/builder tự vọc</b> — người dùng guide free; chỉ thành khách khi kinh doanh thật.</li>
+      <li><b>Kỳ vọng thay ERP/CRM toàn công ty</b> — sai scope.</li>
+      <li><b>Không có việc gì cho bộ máy làm</b> — không có first-win → refund.</li>
+    </ul>
+  </div>
+
+  <div class="foot">Cần verify/chốt: tỷ trọng 4 nhóm (khảo sát webinar) · ngôn ngữ khách (thay bằng nguyên văn) · OPC Insiders go/no-go (P5b) · giá Premium ~80/~100tr ("tự nghĩ ra" — chốt sau lead thật) · phân công content theo nhóm · giá T3 cho người đã có T2 · bộ "31 skills" ⚠ tên nguồn</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPC OS — Offer Ladder v2.3 (Money Model) · AI Native Lab</title>
+<style>
+  :root{
+    --blue:#1F4E79; --blue2:#2E75B6; --accent:#C55A11; --accent-soft:#FCE9DC;
+    --ink:#1f2937; --muted:#5b6775; --line:#dce3ec; --bg:#eef3f9; --card:#ffffff;
+    --t0:#6b7c93; --t1:#0E7C66; --t2:#2E75B6; --t3:#C55A11; --t35:#B0457E; --t4:#7A3FA0;
+    --good:#0E7C66; --bad:#C0392B; --shadow:0 1px 3px rgba(16,40,70,.08),0 6px 18px rgba(16,40,70,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px}
+  a{color:var(--blue2);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header.topbar{position:sticky;top:0;z-index:50;background:rgba(31,78,121,.97);backdrop-filter:blur(6px);color:#fff}
+  .topbar .wrap{display:flex;align-items:center;gap:18px;height:56px}
+  .topbar .brand{font-weight:700;font-size:15px;white-space:nowrap}
+  .topbar nav{display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px;overflow:auto}
+  .topbar nav a{color:#dbe9f7;white-space:nowrap}
+  .topbar nav a:hover{color:#fff}
+  .btn-print{margin-left:auto;background:#fff;color:var(--blue);border:0;border-radius:7px;padding:7px 12px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
+  .hero{background:linear-gradient(160deg,#1F4E79,#2E75B6);color:#fff;padding:46px 0 40px}
+  .hero h1{margin:.1em 0 .15em;font-size:32px;line-height:1.2}
+  .hero .sub{font-size:18px;color:#eaf3fc;font-weight:600}
+  .hero .tag{font-size:14px;color:#cfe2f4;margin-top:10px;max-width:880px}
+  .pill{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 11px;font-size:12.5px;margin:3px 6px 0 0}
+  section{padding:34px 0;border-bottom:1px solid var(--line)}
+  h2.sec{font-size:23px;color:var(--blue);margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  h2.sec .k{font-size:13px;font-weight:700;color:#fff;background:var(--blue2);border-radius:6px;padding:2px 9px}
+  .lead{color:var(--muted);margin:6px 0 18px;max-width:880px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+  .pad{padding:18px 20px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);font-size:13.5px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--blue);color:#fff;font-size:13px}
+  td.rowh{background:#f4f8fc;font-weight:700;color:var(--ink);width:22%}
+  tr:last-child td{border-bottom:0}
+  .muted{color:var(--muted)}
+  .chip{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;line-height:1.7}
+  .chip.best{background:var(--accent-soft);color:var(--accent);border:1px solid #f0c9b2}
+  .chip.todo{background:#fdf2f2;color:var(--bad);border:1px solid #eec3c3}
+  .chip.new{background:#eaf6f1;color:var(--good);border:1px solid #bfe3d6}
+  .note{background:#fff8f1;border:1px solid #f0d6bf;border-left:4px solid var(--accent);border-radius:8px;padding:12px 14px;font-size:14px}
+  .ok{background:#f0faf6;border:1px solid #bfe3d6;border-left:4px solid var(--good);border-radius:8px;padding:12px 14px;font-size:14px}
+  .warn{background:#fdf6f6;border:1px solid #eec3c3;border-left:4px solid var(--bad);border-radius:8px;padding:12px 14px;font-size:14px}
+  ul.clean{margin:8px 0;padding-left:20px}
+  ul.clean li{margin:5px 0}
+  /* funnel ladder — flex để chứa 6 bậc */
+  .ladder{display:flex;align-items:stretch;gap:6px;margin-top:14px;flex-wrap:wrap}
+  .ladder .step{flex:1 1 140px;border-radius:12px;padding:13px 9px;color:#fff;font-weight:700;text-align:center;display:flex;flex-direction:column;justify-content:center;font-size:13px}
+  .ladder .step small{display:block;font-weight:500;font-size:11px;opacity:.92;margin-top:4px;line-height:1.4}
+  .ladder .step .pr{font-size:14.5px;margin-top:6px;font-weight:800}
+  .ladder .arr{font-size:18px;color:var(--blue);font-weight:800;align-self:center;flex:0 0 auto}
+  .bg0{background:linear-gradient(160deg,#6b7c93,#51606f)} .bg1{background:linear-gradient(160deg,#0E7C66,#0a5c4c)}
+  .bg2{background:linear-gradient(160deg,#2E75B6,#1F4E79)} .bg3{background:linear-gradient(160deg,#C55A11,#9c440b)}
+  .bg35{background:linear-gradient(160deg,#B0457E,#7d2f59)} .bg4{background:linear-gradient(160deg,#7A3FA0,#542a73)}
+  .credit{margin-top:12px;background:#f4f8fc;border:1px dashed var(--blue2);border-radius:10px;padding:10px 14px;font-size:13.5px;text-align:center;font-weight:600;color:var(--blue)}
+  /* tier cards */
+  .tier{border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;background:var(--card);display:flex;flex-direction:column}
+  .tier .top{padding:16px 18px;color:#fff}
+  .tier .nm{font-size:17.5px;font-weight:800}
+  .tier .alias{font-size:12.5px;opacity:.9;margin-top:2px}
+  .tier .price{font-size:19px;font-weight:800;margin-top:10px}
+  .tier .price small{font-size:12px;font-weight:600;opacity:.85}
+  .tier .price s{opacity:.7;font-weight:600;font-size:14px}
+  .tier .body{padding:14px 16px;font-size:13.6px;flex:1}
+  .tier .body .pos{font-style:italic;color:var(--muted);margin:0 0 10px}
+  .tier ul{margin:8px 0;padding-left:18px}
+  .tier ul li{margin:4px 0}
+  .tier .who{margin-top:10px;font-size:12.8px;color:var(--blue);font-weight:600}
+  .ribbon{display:inline-block;background:#fff;color:var(--accent);font-weight:800;font-size:11px;border-radius:999px;padding:2px 10px;margin-top:8px}
+  /* score */
+  .score{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .score .s{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:14px;text-align:center}
+  .score .n{font-size:30px;font-weight:800;color:var(--blue)}
+  .score .n.bad{color:var(--bad)}
+  .score .l{font-size:12.5px;color:var(--muted);font-weight:600}
+  .quote{background:var(--card);border-left:4px solid var(--blue2);border-radius:8px;box-shadow:var(--shadow);padding:14px 18px;font-size:15px;font-style:italic;color:var(--ink);margin:14px 0}
+  .src{font-size:12.5px;color:var(--muted)}
+  @media (max-width:860px){
+    .grid2,.grid3{grid-template-columns:1fr}
+    .score{grid-template-columns:1fr 1fr}
+    .ladder{flex-direction:column}
+    .ladder .arr{transform:rotate(90deg);text-align:center}
+    .hero h1{font-size:25px}
+    table{font-size:12.5px}
+  }
+  @media print{header.topbar{display:none}.btn-print{display:none}body{background:#fff}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">OPC OS · Offer Ladder v2.3</div>
+    <nav>
+      <a href="#chandoan">Chẩn đoán</a>
+      <a href="#lane">Avatar</a>
+      <a href="#thang">Thang offer</a>
+      <a href="#goi">Các tầng</a>
+      <a href="#proof">Proof</a>
+      <a href="#dambao">Guarantee</a>
+      <a href="#chot">Next steps</a>
+    </nav>
+    <button class="btn-print" onclick="window.print()">In / PDF</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>OPC OS — Hệ Điều Hành Công Ty Một Người</h1>
+    <div class="sub">v2.3 — bản nâng cấp sau chẩn đoán: lấp hố giá, đóng gói T4, dựng proof engine.</div>
+    <div class="tag">Thay đổi chính so v2.2: thêm tầng <b>Pro 15–20tr</b> (done-with-you), T4 thành <b>3 gói cố định 50/80/100tr+</b>, một lane duy nhất <b>One-Person Company</b>, minh bạch chi phí vận hành, <b>Success Club 200tr/năm</b> (all-access), thêm downsell. Chi tiết lý do: <code>offer_review_2026-06-11.md</code>.</div>
+    <div style="margin-top:12px">
+      <span class="pill">Free → 250k → 500k → 2tr → 15–20tr → 50–100tr</span>
+      <span class="pill">Trần 30-day cash/khách: ~4.5tr → ~22tr</span>
+      <span class="pill">Lead T4: chào Premium+ 80tr</span>
+    </div>
+  </div>
+</div>
+
+<section id="chandoan">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">1</span> Chẩn đoán v2.2 — vì sao phải sửa</h2>
+    <p class="lead">Chấm theo Value Equation. Kết luận: lợi thế thật nằm ở Time Delay (one-click), nhưng <b>Likelihood 3/10</b> là chỗ chết của mọi tầng — chưa có một proof nào.</p>
+    <div class="score">
+      <div class="s"><div class="n">7</div><div class="l">Dream Outcome<br>frame mạnh, chưa lượng hóa theo tầng</div></div>
+      <div class="s"><div class="n bad">3</div><div class="l">Perceived Likelihood<br>0 testimonial, 0 case study, 0 số liệu</div></div>
+      <div class="s"><div class="n">8</div><div class="l">Time Delay ↓<br>one-click 15 phút — đòn tốt nhất</div></div>
+      <div class="s"><div class="n">5</div><div class="l">Effort ↓<br>VPS + API key + chi phí ẩn vẫn là núi với non-tech</div></div>
+    </div>
+    <div class="grid3" style="margin-top:16px">
+      <div class="warn"><b>Hố giá 25x:</b> 2tr nhảy thẳng 50tr — khách tốt nhất không có chỗ leo. → Thêm <b>Pro 15–20tr</b>.</div>
+      <div class="warn"><b>T4 là khoảng giá, không phải sản phẩm:</b> "50–100tr" không chào được lead. → Đóng <b>3 gói cố định</b>.</div>
+      <div class="warn"><b>Avatar mơ hồ:</b> ai cũng bán = không ai mua. → Gom về một identity: <b>One-Person Company</b> (mục 2).</div>
+    </div>
+    <p class="src" style="margin-top:10px">Đủ 10 điểm yếu + fix: <code>offer_review_2026-06-11.md</code>.</p>
+  </div>
+</section>
+
+<section id="lane" style="background:#fff">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">2</span> Một lane duy nhất: One-Person Company (chốt 11/06)</h2>
+    <p class="lead">Không tách lane theo độ rành kỹ thuật. Avatar là một identity — bất kỳ ai <b>một mình phải vận hành nhiều việc</b>. Cùng một thông điệp, khác ngân sách và điểm vào; mỗi tầng tự đón đúng người.</p>
+    <div class="quote">"Bạn đang một mình vận hành nhiều thứ — <b>OPC OS là hệ điều hành cho việc đó</b>."</div>
+    <table style="margin-top:14px">
+      <tr><th>Họ là ai</th><th>Vì sao họ là One-Person Company</th><th style="width:24%">Điểm vào tự nhiên</th></tr>
+      <tr><td class="rowh">Solopreneur / solo CEO</td><td>Điều hành cả công ty một mình</td><td>T2 Starter → Club</td></tr>
+      <tr><td class="rowh">CEO công ty có team</td><td>Vẫn là một người phải nhìn rõ, quyết, theo dõi mọi thứ — CEO của chính họ</td><td>Webinar → T3 / Pro / Premium</td></tr>
+      <tr><td class="rowh">Quản lý cấp trung</td><td>Điều hành mảng của mình như một công ty một người</td><td>T1/T2 → Club</td></tr>
+      <tr><td class="rowh">Đi làm full-time + dự án riêng</td><td>Một mình chạy song song công việc + side project</td><td>Free → T1 → T2</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="thang">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">3</span> Thang offer v2.3</h2>
+    <div class="quote"><b>Grand Slam statement (T2):</b> "Trả 500k hôm nay, 15 phút nữa bạn có một công ty AI chạy trên Telegram. Sáng mai nó gửi bạn bản brief đầu tiên và bài viết đầu tiên do nó tự soạn theo giọng của bạn. Không chạy được trong 24h — chúng tôi cài giúp tận tay; vẫn không xong, hoàn 100%."</div>
+    <div class="ladder">
+      <div class="step bg0">T0 · FREE<small>PDF Hermes + tips · ebook · webinar · free community</small><div class="pr">0đ</div></div>
+      <div class="arr">→</div>
+      <div class="step bg1">T1 · ENGINE PACK*<small>Script 1-click + 9Router + SSH Agent</small><div class="pr">250k</div></div>
+      <div class="arr">→</div>
+      <div class="step bg2">T2 · STARTER<small>Repo + Telegram + first-win · add-on 1.5–2tr</small><div class="pr">500k</div></div>
+      <div class="arr">→</div>
+      <div class="step bg3">T3 · WORKSHOP/DFY<small>Setup tại chỗ + dạy add skill</small><div class="pr">2tr</div></div>
+      <div class="arr">→</div>
+      <div class="step bg35">T3.5 · PRO<small>Done-with-you: cài cùng + tune + 30 ngày</small><div class="pr">15–20tr</div></div>
+      <div class="arr">→</div>
+      <div class="step bg4">T4 · PREMIUM<small>Done-for-you 3 gói cố định</small><div class="pr">50/80/100tr+</div></div>
+    </div>
+    <div class="credit">CREDIT LADDER: trừ đúng tiền tầng dưới khi nâng cấp (250k → 500k → 2tr → Pro) &nbsp;·&nbsp; DOWNSELL: từ chối T2 → free community + retarget · từ chối T3 → recording + group Q&amp;A 500k &nbsp;·&nbsp; CONTINUITY: OPC OS Success Club 200tr/năm — all-access + monthly consulting (đỉnh thang)</div>
+    <p class="src" style="margin-top:8px">*"Hermes Edition" có rủi ro brand (đặt tên mình lên tool bên thứ ba, mời so sánh với đồ free) — đề xuất "OPC OS Engine Pack", team quyết.</p>
+  </div>
+</section>
+
+<section id="goi" style="background:#fff">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">4</span> Chi tiết từng tầng</h2>
+    <div class="grid3" style="margin-top:14px">
+
+      <div class="tier">
+        <div class="top bg0">
+          <div class="nm">T0 — FREE</div>
+          <div class="alias">Câu khách · tạo list</div>
+          <div class="price">0đ</div>
+        </div>
+        <div class="body">
+          <ul>
+            <li>PDF cài Hermes default + tips tối ưu (9Router) — chi tiết hơn guide mạng</li>
+            <li>Ebook/template hàng loạt (ebook builder) · content 70/30</li>
+            <li><b>Webinar</b>: FOMO so sánh → demo pain tự cài → "chúng tôi chuẩn bị sẵn". <b>Replay = proof trên landing page</b></li>
+            <li><b>Free community</b> (thay school 5$): hồ chứa lead + nơi downsell đổ về</li>
+          </ul>
+          <div class="who">Bán chính qua ads + webinar; content free làm phễu</div>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="top bg1">
+          <div class="nm">T1 — ENGINE PACK</div>
+          <div class="alias">Tripwire · decoy · lọc buyer</div>
+          <div class="price">250k</div>
+        </div>
+        <div class="body">
+          <p class="pos">Ranh giới với free phải sắc: free = hướng dẫn <i>tay</i> · 250k = tự động hóa.</p>
+          <ul>
+            <li><b>Script one-click + bundle cấu hình sẵn</b>: Hermes + 9Router + SSH Agent</li>
+            <li>+ Cập nhật khi script đổi + kênh hỏi đáp</li>
+            <li>Decoy: chưa Telegram, chưa phòng ban → mời lên T2 (trừ 250k)</li>
+          </ul>
+          <div class="who">Người tự cài được · biến free list thành buyer list</div>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="top bg2">
+          <div class="nm">T2 — OPC OS STARTER</div>
+          <div class="alias">Core · gói chốt volume</div>
+          <div class="price">500k <small>· 1/18 giá đối thủ</small></div>
+          <span class="ribbon">★ GÓI CHỦ LỰC</span>
+        </div>
+        <div class="body">
+          <ul>
+            <li>One-click VPS, HTTPS sẵn · Telegram 3 click, bot tự tạo topics · authenticate 1 click</li>
+            <li><span class="chip new">MỚI</span> <b>First-win ngày đầu</b>: bot tự viết 1 bài theo giọng khách + brief sáng hôm sau (backlog sản phẩm)</li>
+            <li><span class="chip new">MỚI</span> <b>Box minh bạch chi phí</b>: VPS + API ~150–300k/th, tiền của bạn <i>(điền số thật)</i></li>
+            <li>Add-on checkout: mentor/expert bots <b>1.5–2tr</b> · <span class="chip new">MỚI</span> Managed Hosting (định giá sau)</li>
+            <li>Bonus: ebook OPC full + 3 dataset giọng viết</li>
+          </ul>
+          <div class="who">Mua T1 rồi chỉ bù 250k</div>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="top bg3">
+          <div class="nm">T3 — WORKSHOP OS / DFY</div>
+          <div class="alias">Hands-on · upsell list webinar</div>
+          <div class="price">2tr</div>
+        </div>
+        <div class="body">
+          <ul>
+            <li>Workshop: setup tại chỗ đủ wow + dạy add skill · DFY install cho non-tech · suất giới hạn thật (3 người làm)</li>
+            <li>Ưu đãi có điều kiện (không phải giá niêm yết): cộng đồng/founding còn 1tr — chỉ khi có reason-why nói được thành lời + deadline thật</li>
+            <li><span class="chip new">MỚI</span> Downsell khi từ chối: recording + group Q&amp;A = 500k</li>
+          </ul>
+          <div class="who">Mua T2 được trừ 500k · cửa vào cho người không muốn tự cài</div>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="top bg35">
+          <div class="nm">T3.5 — OPC OS PRO</div>
+          <div class="alias">Done-with-you · MỚI — lấp hố 2tr→50tr</div>
+          <div class="price">15–20tr</div>
+          <span class="ribbon">TĂNG TRẦN CASH 5x</span>
+        </div>
+        <div class="body">
+          <ul>
+            <li>Cài <b>cùng</b> khách (2 buổi call), tune theo doanh nghiệp: phòng ban đúng cơ cấu</li>
+            <li>2–3 use case chạy thật trên việc thật + 30 ngày đồng hành</li>
+            <li>Guarantee: use case chạy trong 14 ngày, không đạt → +30 ngày miễn phí</li>
+          </ul>
+          <div class="who">Khách workshop muốn "làm hẳn cho công ty tôi" nhưng chưa tới 50tr · kế thừa Starter 25–35tr của thang v1</div>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="top bg4">
+          <div class="nm">T4 — OPC OS PREMIUM</div>
+          <div class="alias">Done-for-you · 3 gói cố định · scope: CHỈ sản phẩm OPC OS</div>
+          <div class="price">50 / 80 / 100tr+</div>
+        </div>
+        <div class="body">
+          <ul>
+            <li><b>Premium 50tr:</b> full setup + 3 use case + expert bots tuned + training + 30 ngày tối ưu</li>
+            <li><b>Premium+ 80tr (gói chốt):</b> + tích hợp riêng (CRM/Sheets) + 90 ngày + meeting-note→task</li>
+            <li><b>Command 100tr+ (anchor):</b> + retainer 6 tháng + governance + team rollout</li>
+            <li><span class="chip todo">GẤP</span> Lead bác sĩ: chào <b>Premium+ 80tr</b>, anchor Command, lùi tối đa về 50tr</li>
+          </ul>
+          <div class="who">Guarantee milestone: hệ thống + 3 use case trong 14 ngày, không đạt không thu phần còn lại</div>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="top" style="background:linear-gradient(160deg,#3f4a5a,#2a3340)">
+          <div class="nm">OPC OS SUCCESS CLUB</div>
+          <div class="alias">Continuity · yearly all-access · đỉnh thang</div>
+          <div class="price">200tr/năm</div>
+        </div>
+        <div class="body">
+          <ul>
+            <li>All-access <b>toàn bộ hệ sinh thái AI Native Lab</b>: OPC OS + mọi sản phẩm khác — khóa học, skill packs, template, công cụ ra mắt trong năm</li>
+            <li><b>Ưu tiên hỗ trợ</b> + <b>monthly consulting meeting</b></li>
+            <li>Phân biệt scope: Premium = "làm OPC OS cho bạn" · Club = "mọi thứ chúng tôi có + tư vấn hằng tháng"</li>
+            <li>Bán 1-1 sau demo/Premium · anchor: cộng lẻ toàn bộ đắt hơn nhiều</li>
+          </ul>
+          <div class="who">Mắt xích LTGP cao nhất · school 5$ khai tử → free community ở đáy phễu</div>
+        </div>
+      </div>
+
+      <div class="card pad" style="display:flex;flex-direction:column;justify-content:center">
+        <b>Kinh tế phễu v2.3</b>
+        <span class="muted" style="font-size:13.5px;margin-top:6px">Trần 30-day cash/khách: ~4.5tr → <b>~22tr</b> nhờ tầng Pro. Mục tiêu CFA: thu 30 ngày &gt; 2× CAC. Benchmark learning test (minh họa, đo thật rồi chỉnh): webinar→T2 5–10% · T2→add-on 20–30% · T2→Club bundle ~30% · workshop→Pro ~10%.</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">5</span> Proof engine — fix biến yếu nhất (Likelihood 3/10)</h2>
+    <p class="lead">Mình chê agentboss testimonial AI-gen, nhưng mình đang có đúng 0 testimonial. Trước khi đổ ads, mỗi landing page cần tối thiểu 3 proof thật.</p>
+    <div class="grid3">
+      <div class="card pad"><b>1. Founding cohort</b><br><span class="muted">10 suất T2/T3 giảm sâu đổi case study ghi hình + số liệu trước/sau.</span></div>
+      <div class="card pad"><b>2. Build-in-public</b><br><span class="muted">Mỗi tuần đăng số thật: bài do OPC OS tự viết đạt bao nhiêu tương tác, giờ tiết kiệm, screenshot phòng ban.</span></div>
+      <div class="card pad"><b>3. Webinar replay</b><br><span class="muted">Gắn thẳng landing page — proof tự phục vụ, demo live không cắt ghép.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="dambao" style="background:#fff">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">6</span> Guarantee theo tầng &amp; cơ chế giá</h2>
+    <table style="margin-top:14px">
+      <tr><th style="width:22%">Tầng</th><th>Guarantee</th></tr>
+      <tr><td class="rowh">T2 Starter</td><td>24h chưa có bot chạy → cài giúp remote miễn phí; vẫn không → hoàn 100%</td></tr>
+      <tr><td class="rowh">T3 Workshop</td><td>Ra về chưa có hệ thống chạy → hoàn 100% tại chỗ</td></tr>
+      <tr><td class="rowh">T3.5 Pro</td><td>2–3 use case chạy thật trong 14 ngày, không đạt → +30 ngày đồng hành miễn phí</td></tr>
+      <tr><td class="rowh">T4 Premium</td><td>Milestone: hệ thống + 3 use case trong 14 ngày, không đạt → không thu phần còn lại</td></tr>
+    </table>
+    <div class="grid3" style="margin-top:16px">
+      <div class="card pad"><b>Credit ladder</b><br><span class="muted">Trừ đúng tiền tầng dưới khi nâng cấp. Loyalty thật.</span></div>
+      <div class="card pad"><b>Giá gạch có reason-why</b><br><span class="muted">Chỉ gạch giá khi nói được lý do thành lời + deadline thật. Không FOMO ảo — chính mình đã chê agentboss vụ này.</span></div>
+      <div class="card pad"><b>A/B test mọi thứ</b><br><span class="muted">Giá, tên, message — không bán được thì chỉnh, không overthink.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="chot" style="border-bottom:0">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">7</span> Next steps — ưu tiên theo chẩn đoán</h2>
+    <div class="warn" style="margin-top:14px"><b>P1 — GẤP NHẤT:</b> trang chào giá 3 gói T4 → Magic Make chào lead bác sĩ (chào Premium+ 80tr, anchor Command).</div>
+    <div class="card pad" style="margin-top:14px">
+      <ul class="clean">
+        <li><span class="chip best">P2</span> Dựng mô tả + landing section tầng <b>Pro 15–20tr</b> trước workshop — để workshop có chỗ upsell</li>
+        <li><span class="chip best">P3</span> Khởi động proof engine: chọn 10 suất founding + bắt đầu build-in-public tuần này</li>
+        <li><span class="chip best">P4</span> Điền số thật box chi phí vận hành · đưa "first-win ngày đầu" vào backlog sản phẩm (Magic Make)</li>
+        <li><span class="chip best">P5</span> Soạn quyền lợi chi tiết + trang chào <b>Success Club 200tr/năm</b> — bán 1-1 cho khách Premium/lead lớn</li>
+        <li><span class="chip new">ĐANG CHẠY</span> T1 PDF + free PDF (Hwang) · onboarding T2 + Simple Digital Selling/Sepay + ebook builder (Magic Make) · webinar thứ Ba/Tư · workshop cuối tuần sau · content plan 70/30 (Hwang)</li>
+      </ul>
+    </div>
+    <p class="src" style="margin-top:16px">Nguồn: standup 10–11/06/2026 · <code>offer_review_2026-06-11.md</code> (chẩn đoán đầy đủ) · <code>offer_ladder_v2.md</code> v2.3 · <code>offer_overview.md</code> v1. Tài liệu nội bộ AI Native Lab.</p>
+  </div>
+</section>
+
+</body>
+</html>

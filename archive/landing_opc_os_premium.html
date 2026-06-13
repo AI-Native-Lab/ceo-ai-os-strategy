@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPC OS Premium — One-Person Company Operating System · Hệ Điều Hành Công Ty Một Người</title>
+<meta name="description" content="Hệ Điều Hành thông minh vận hành công ty của bạn tự động bằng AI: brief mỗi sáng, họp xong có biên bản và việc được giao, điều khiển chỉ bằng chat, 24/7. Chạy thật trong 14 ngày — không đạt, không thu phần còn lại.">
+<style>
+  :root{
+    --ink:#0e1726; --ink2:#33415c; --muted:#64748b; --line:#e2e8f0;
+    --bg:#ffffff; --bg-soft:#f6f8fb; --navy:#0f2a4a; --navy2:#163b66;
+    --gold:#c98b2d; --gold-soft:#fdf4e3; --green:#0E7C66; --red:#b3403a;
+    --shadow:0 1px 3px rgba(10,30,60,.07),0 10px 30px rgba(10,30,60,.07);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;font-size:17px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+  .wide{max-width:1060px;margin:0 auto;padding:0 22px}
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(15,42,74,.97);color:#fff;backdrop-filter:blur(6px)}
+  .topbar .in{max-width:1060px;margin:0 auto;padding:0 22px;height:58px;display:flex;align-items:center;gap:14px}
+  .topbar .logo{font-weight:800;letter-spacing:.4px}
+  .topbar .logo span{color:#ffd9a0}
+  .topbar .cta-mini{margin-left:auto;background:var(--gold);color:#fff;border-radius:8px;padding:8px 16px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap}
+  /* hero */
+  .hero{background:linear-gradient(165deg,#0f2a4a 0%,#163b66 70%,#1d4f86 100%);color:#fff;padding:72px 0 64px}
+  .hero .eyebrow{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 14px;font-size:13px;font-weight:600;letter-spacing:.3px;color:#ffd9a0}
+  .hero h1{font-size:42px;line-height:1.18;margin:18px 0 14px;font-weight:800;letter-spacing:-.5px}
+  .hero h1 em{font-style:normal;color:#ffd9a0}
+  .hero .sub{font-size:19.5px;color:#dbe7f5;max-width:760px}
+  .hero .sub b{color:#fff}
+  .cta{display:inline-block;background:var(--gold);color:#fff;border-radius:10px;padding:16px 30px;font-weight:800;font-size:17px;text-decoration:none;box-shadow:0 8px 24px rgba(201,139,45,.35);transition:transform .15s}
+  .cta:hover{transform:translateY(-2px)}
+  .cta-sub{display:block;font-size:13.5px;color:#b9cce3;margin-top:10px}
+  .hero .ctas{margin-top:28px}
+  .hero .ghost{display:inline-block;margin-left:14px;color:#dbe7f5;font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:4px}
+  /* sections */
+  section{padding:58px 0}
+  section.soft{background:var(--bg-soft)}
+  h2{font-size:30px;line-height:1.25;margin:0 0 14px;letter-spacing:-.3px;color:var(--ink)}
+  h3{font-size:19px;margin:0 0 8px;color:var(--navy)}
+  p{margin:0 0 16px}
+  .muted{color:var(--muted)}
+  .kicker{font-size:13px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:24px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  /* chat mock */
+  .chat{background:#0e1726;border-radius:16px;padding:22px;color:#dbe7f5;font-size:14.5px;box-shadow:var(--shadow)}
+  .chat .hd{font-weight:700;color:#ffd9a0;font-size:13px;letter-spacing:.5px;margin-bottom:12px}
+  .bubble{background:#1b2942;border-radius:10px;padding:12px 14px;margin:8px 0;line-height:1.55}
+  .bubble b{color:#fff}
+  .bubble.small{font-size:13.5px;color:#aebfd8}
+  /* steps */
+  .steps{counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .step{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:22px;position:relative}
+  .step:before{counter-increment:s;content:counter(s);position:absolute;top:-14px;left:18px;background:var(--navy);color:#fff;font-weight:800;font-size:14px;border-radius:999px;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+  .step h3{margin-top:8px}
+  .step .when{font-size:12.5px;font-weight:700;color:var(--gold);letter-spacing:.4px;text-transform:uppercase}
+  /* pricing */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+  .plan{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:26px 24px;display:flex;flex-direction:column;position:relative}
+  .plan.featured{border:2px solid var(--gold);transform:scale(1.02)}
+  .plan .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:12px;font-weight:800;border-radius:999px;padding:3px 14px;white-space:nowrap}
+  .plan .nm{font-weight:800;font-size:18px;color:var(--navy)}
+  .plan .pr{font-size:30px;font-weight:800;margin:8px 0 2px;color:var(--ink)}
+  .plan .pr small{font-size:13px;font-weight:600;color:var(--muted)}
+  .plan .for{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  .plan ul{margin:0 0 18px;padding-left:18px;font-size:14.5px;flex:1}
+  .plan ul li{margin:7px 0}
+  .plan .cta{display:block;text-align:center;font-size:15px;padding:13px 10px}
+  .plan .cta.alt{background:#fff;color:var(--navy);border:2px solid var(--navy);box-shadow:none}
+  /* guarantee */
+  .guarantee{background:linear-gradient(165deg,#0E7C66,#0a5c4c);color:#fff;border-radius:18px;padding:34px 32px;box-shadow:var(--shadow)}
+  .guarantee h2{color:#fff}
+  .guarantee p{color:#e2f3ee;font-size:17.5px}
+  .guarantee b{color:#fff}
+  /* honest proof */
+  .honest{border-left:4px solid var(--gold);background:var(--gold-soft);border-radius:10px;padding:20px 22px}
+  /* faq */
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:10px 0;box-shadow:var(--shadow)}
+  summary{font-weight:700;cursor:pointer;color:var(--navy);font-size:16.5px}
+  details p{margin:12px 0 0;font-size:15.5px}
+  /* final */
+  .final{background:linear-gradient(165deg,#0f2a4a,#163b66);color:#fff;text-align:center;padding:72px 0}
+  .final h2{color:#fff;font-size:32px}
+  .final p{color:#dbe7f5;max-width:640px;margin:0 auto 26px}
+  footer{background:#0e1726;color:#8da2bd;font-size:13px;text-align:center;padding:26px 0}
+  .tick li{list-style:none;position:relative;padding-left:26px;margin:9px 0}
+  .tick li:before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:800}
+  .x li:before{content:"✕";color:var(--red)}
+  ul.tick,ul.x{padding-left:2px;margin:10px 0}
+  @media (max-width:860px){
+    .hero h1{font-size:30px}
+    .grid3,.grid2,.plans,.steps{grid-template-columns:1fr}
+    .plan.featured{transform:none}
+    h2{font-size:25px}
+    .hero .ghost{display:block;margin:14px 0 0}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="in">
+    <div class="logo">OPC<span> OS</span> · Premium</div>
+    <a class="cta-mini" href="#datlich">Đặt buổi demo 30 phút</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">ONE-PERSON COMPANY OPERATING SYSTEM (OPC OS)</span>
+    <div style="color:#b9cce3;font-size:14.5px;margin-top:8px;letter-spacing:.2px">Hệ Điều Hành Công Ty Một Người — vận hành tự động bằng AI · Dành cho CEO &amp; founder đang một mình vận hành nhiều thứ</div>
+    <h1>Một công ty AI <em>tự vận hành</em> cho riêng bạn.<br>Chúng tôi lắp trọn — chạy thật trong 14 ngày.</h1>
+    <p class="sub">Mỗi sáng, một bản brief nằm sẵn trong tin nhắn của bạn: việc cần quyết, email cần trả, đội đang kẹt ở đâu. Họp xong, biên bản và việc được giao tự xuất hiện. Bài viết tự soạn theo giọng của bạn, chờ bạn duyệt. Bạn điều khiển tất cả <b>chỉ bằng chat</b> — và không phải động vào bất cứ thứ gì kỹ thuật. Không chạy được như cam kết trong 14 ngày — chúng tôi không thu phần còn lại.</p>
+    <div class="ctas">
+      <a class="cta" href="#datlich">Đặt buổi demo 30 phút — miễn phí</a>
+      <a class="ghost" href="#gia">Xem 3 gói &amp; giá ↓</a>
+      <span class="cta-sub">Demo trên hệ thống thật chúng tôi đang dùng hằng ngày, không phải slide.</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section>
+  <div class="wrap">
+    <div class="kicker">Nghe quen không?</div>
+    <h2>Bạn đã dùng AI mỗi ngày. Nhưng bạn vẫn là người vận hành tất cả.</h2>
+    <p>Bạn chat với ChatGPT một, hai tiếng mỗi ngày. Nó giỏi thật. Nhưng sáng hôm sau nó quên sạch những gì hai bên đã thống nhất. Nó không tự đọc email của bạn, không nhớ quyết định tuần trước, không nhắc bạn việc anh A còn nợ, và tuyệt nhiên không làm gì khi bạn đang ngủ.</p>
+    <p>Thế là cuối ngày, người tổng hợp mọi thứ, đốc thúc mọi người, soạn mọi nội dung… vẫn là bạn. Công ty có thể có nhiều người, nhưng <b>người phải nhìn rõ và quyết mọi thứ chỉ có một</b>. Đó chính là cái giá của vị trí bạn đang ngồi — và nó không cần phải như vậy nữa.</p>
+  </div>
+</section>
+
+<!-- WHAT YOU GET — a morning -->
+<section class="soft">
+  <div class="wide">
+    <div class="kicker">Cái bạn nhận được</div>
+    <h2>Không phải một chatbot. Một bộ máy có phòng ban.</h2>
+    <p style="max-width:760px">OPC OS là một <b>Hệ Điều Hành thông minh</b> lắp riêng cho công ty bạn: các phòng ban AI dùng chung một bộ não, nối thẳng vào email, lịch và dữ liệu của bạn. Nó không chỉ trả lời — <b>nó hành động</b>. Bạn giao việc cho nó chỉ bằng chat, như nhắn tin cho một trợ lý, và nó làm việc 24/7 kể cả khi bạn ngủ. Đây là một buổi sáng của bạn sau khi hệ thống lên sóng:</p>
+    <div class="grid2" style="margin-top:26px;align-items:start">
+      <div class="chat">
+        <div class="hd">📱 07:00 SÁNG THỨ HAI — TIN NHẮN TỪ HỆ ĐIỀU HÀNH CỦA BẠN</div>
+        <div class="bubble"><b>☀️ Brief sáng</b><br>• 3 ưu tiên hôm nay, xếp theo ảnh hưởng<br>• 10:00 họp sales — pipeline +12%, hỏi An về deal đang kẹt<br>• Email CFO 2 ngày chưa trả lời — ngân sách marketing<br>• Cần bạn quyết: duyệt proposal ABC trước 11:00</div>
+        <div class="bubble small">— Phòng Nội dung: bài tuần này đã soạn theo giọng anh, kèm ảnh. Duyệt là đăng.</div>
+        <div class="bubble small">— Phòng Vận hành: biên bản họp chiều qua đã gửi, 3 việc đã giao, sẽ nhắc trước deadline.</div>
+      </div>
+      <div>
+        <ul class="tick">
+          <li><b>Brief điều hành mỗi sáng</b> — đọc 30 giây, biết cả công ty đang ở đâu, hôm nay cần quyết gì.</li>
+          <li><b>Họp xong là xong</b> — forward ghi âm, nhận biên bản + việc đã giao ai, hạn nào. Hệ thống tự nhắc.</li>
+          <li><b>Cỗ máy nội dung mang giọng bạn</b> — tự nghiên cứu, tự viết, tự tạo ảnh, chờ duyệt.</li>
+          <li><b>Trí nhớ công ty nối ngày</b> — quyết định, việc treo, con số không bay hơi theo từng phiên chat.</li>
+          <li><b>Chạy 24/7 trên tài khoản riêng của bạn</b> — dữ liệu là của bạn, không dán thông tin công ty vào AI công cộng.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOT CHATGPT -->
+<section>
+  <div class="wrap">
+    <div class="kicker">Câu hỏi đúng</div>
+    <h2>"Tôi dùng ChatGPT rồi — cái này khác gì?"</h2>
+    <p>ChatGPT là một nhân viên giỏi nhưng mất trí nhớ mỗi sáng, và chỉ làm việc khi bạn ngồi gõ. OPC OS là <b>cả một công ty</b>: nhiều phòng ban chạy trên một engine, nhớ mọi quyết định, tự chạy kể cả khi bạn ngủ — và thao tác được vào những chỗ ChatGPT bị khóa: máy của bạn, file của bạn, quy trình của bạn.</p>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card">
+        <h3 style="color:var(--muted)">Tự dùng ChatGPT</h3>
+        <ul class="x tick">
+          <li>Quên hết sau mỗi phiên chat</li>
+          <li>Chỉ chạy khi bạn ngồi gõ</li>
+          <li>Một cửa sổ làm một việc</li>
+          <li>Không tự đọc email, lịch, không tự giao việc</li>
+          <li>Bạn vẫn là người vận hành</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:var(--gold)">
+        <h3>OPC OS Premium</h3>
+        <ul class="tick">
+          <li>Trí nhớ công ty nối ngày, học giọng và cách bạn quyết</li>
+          <li>Tự chạy theo lịch, báo cáo về Telegram</li>
+          <li>Nhiều phòng ban, một bộ não chung</li>
+          <li>Nối email, lịch, dữ liệu — đóng vòng đến tận hành động</li>
+          <li><b>Chúng tôi lắp, tune và chịu trách nhiệm nó chạy đúng</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="soft">
+  <div class="wide">
+    <div class="kicker">Cách triển khai</div>
+    <h2>14 ngày, ba bước, không cần đội IT.</h2>
+    <div class="steps" style="margin-top:30px">
+      <div class="step">
+        <div class="when">Buổi đầu · 60 phút</div>
+        <h3>Audit &amp; thiết kế</h3>
+        <p style="font-size:15px">Ngồi với bạn 60 phút: mục tiêu quý này, ai là người chủ chốt, việc gì đang ngốn giờ của bạn nhất. Chúng tôi chọn cùng bạn 3 use case có ảnh hưởng lớn nhất để lắp trước.</p>
+      </div>
+      <div class="step">
+        <div class="when">Ngày 1–14</div>
+        <h3>Lắp đặt &amp; tune theo công ty bạn</h3>
+        <p style="font-size:15px">Chúng tôi dựng toàn bộ: các phòng ban AI, kết nối email, lịch, dữ liệu, và dạy hệ thống giọng của bạn. Ngày 14, ba use case chạy thật trên việc thật — không phải bản demo.</p>
+      </div>
+      <div class="step">
+        <div class="when">Ngày 15–45</div>
+        <h3>Training &amp; 30 ngày tối ưu</h3>
+        <p style="font-size:15px">Training cho bạn (và trợ lý nếu có), rồi 30 ngày theo sát chỉnh từng chi tiết theo phản hồi thật. Bạn chỉ cần dùng và nói "chỗ này chưa đúng ý tôi".</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="gia">
+  <div class="wide">
+    <div class="kicker">Đầu tư</div>
+    <h2>Ba gói. Một cam kết chung: chạy thật trong 14 ngày.</h2>
+    <p style="max-width:740px">Một trợ lý điều hành giỏi tốn 15–25 triệu mỗi tháng, cần tuyển, cần quản, và nghỉ việc mang theo toàn bộ ngữ cảnh. Hệ thống này làm phần việc nặng nhất của vai trò đó, chạy 24/7, và ngữ cảnh ở lại với công ty bạn mãi mãi.</p>
+    <div class="plans" style="margin-top:34px">
+
+      <div class="plan">
+        <div class="nm">PREMIUM</div>
+        <div class="pr">50 triệu <small>trọn gói</small></div>
+        <div class="for">Cho CEO muốn hệ điều hành cá nhân hoàn chỉnh</div>
+        <ul class="tick">
+          <li>Lắp đặt trọn gói — bạn không phải động vào kỹ thuật</li>
+          <li>Phòng ban chuẩn + <b>3 use case</b> chạy thật</li>
+          <li>Expert bots tune theo giọng &amp; ngành của bạn</li>
+          <li>Training 2 buổi</li>
+          <li>30 ngày tối ưu sau bàn giao</li>
+        </ul>
+        <a class="cta alt" href="#datlich">Bắt đầu từ buổi demo</a>
+      </div>
+
+      <div class="plan featured">
+        <div class="tag">ĐƯỢC CHỌN NHIỀU NHẤT</div>
+        <div class="nm">PREMIUM+</div>
+        <div class="pr">80 triệu <small>trọn gói</small></div>
+        <div class="for">Cho CEO có team — nối cả công ty vào hệ thống</div>
+        <ul class="tick">
+          <li>Mọi thứ trong Premium</li>
+          <li><b>Tích hợp riêng</b>: CRM / Google Sheets / hệ thống nội bộ</li>
+          <li>Workflow họp → biên bản → giao việc → tự nhắc đội</li>
+          <li><b>90 ngày đồng hành</b> thay vì 30</li>
+          <li>Ưu tiên hỗ trợ trực tiếp</li>
+        </ul>
+        <a class="cta" href="#datlich">Bắt đầu từ buổi demo</a>
+      </div>
+
+      <div class="plan">
+        <div class="nm">COMMAND</div>
+        <div class="pr">100 triệu+ <small>theo phạm vi</small></div>
+        <div class="for">Cho doanh nghiệp muốn cả tổ chức lên AI-first</div>
+        <ul class="tick">
+          <li>Mọi thứ trong Premium+</li>
+          <li><b>Retainer 6 tháng</b> — tối ưu liên tục</li>
+          <li>Governance &amp; phân quyền cho đội</li>
+          <li>Rollout + đào tạo các phòng ban thật</li>
+          <li>Roadmap AI 6–12 tháng</li>
+        </ul>
+        <a class="cta alt" href="#datlich">Trao đổi phạm vi</a>
+      </div>
+
+    </div>
+    <p class="muted" style="font-size:14px;margin-top:18px">Minh bạch chi phí vận hành: hệ thống chạy trên tài khoản riêng của chính bạn (~vài trăm nghìn/tháng, trả thẳng cho nhà cung cấp, không qua chúng tôi). Bạn sở hữu toàn bộ — không bị khóa vào chúng tôi.</p>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="soft">
+  <div class="wrap">
+    <div class="guarantee">
+      <div class="kicker" style="color:#ffd9a0">Cam kết bằng tiền của chúng tôi</div>
+      <h2>Chạy thật trong 14 ngày — hoặc bạn không trả phần còn lại.</h2>
+      <p>Chúng tôi làm việc theo milestone. Nếu đến ngày 14, hệ thống của bạn chưa lên sóng với đủ 3 use case đã thống nhất ở buổi audit, bạn <b>không thanh toán phần còn lại</b> của hợp đồng. Không điều kiện ẩn, không đổ lỗi cho "khách chưa cung cấp đủ thông tin". Rủi ro của dự án nằm ở phía chúng tôi — đúng như nó phải thế.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HONEST PROOF -->
+<section>
+  <div class="wrap">
+    <div class="kicker">Vì sao tin chúng tôi</div>
+    <h2>Cách tốt nhất để tin: xem nó chạy thật, rồi tự mình trải nghiệm.</h2>
+    <p><b>Toàn bộ công ty chúng tôi vận hành bằng chính OPC OS</b> — từ bản brief mỗi sáng, biên bản các cuộc họp, đến những bài viết bạn đã đọc trên kênh của chúng tôi, đều do hệ thống tự soạn và chúng tôi công khai số liệu mỗi tuần. Thay vì thuyết phục bạn bằng lời, chúng tôi mời bạn nhìn tận mắt — rồi tự dùng, tự cảm nhận.</p>
+    <div class="honest">
+      <b>Trong buổi demo 30 phút, bạn sẽ xem trực tiếp:</b> bản brief sáng nay của chính chúng tôi, một cuộc họp thật biến thành biên bản + việc được giao trong vài phút, và một bài viết tự soạn từ A đến Z. Hệ thống thật, dữ liệu thật, không slide, không video dựng.
+    </div>
+    <p style="margin-top:18px"><b>Suất founding client:</b> chúng tôi nhận tối đa <b>3 khách triển khai mỗi đợt</b> — vì mỗi dự án đều do đội ngũ trực tiếp lắp và tune, không thuê ngoài. Đổi lại việc bạn đồng ý làm case study (số liệu trước/sau), khách đợt đầu nhận giá ưu đãi được báo riêng trong buổi demo. Khi đủ 3 suất, đợt sau mở lại theo lịch đội ngũ.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="soft">
+  <div class="wrap">
+    <div class="kicker">Câu hỏi thường gặp</div>
+    <h2>Những điều CEO thường hỏi trước khi bắt đầu</h2>
+    <details>
+      <summary>Tôi không rành kỹ thuật. Tôi có phải đụng vào code, server gì không?</summary>
+      <p>Không. Premium là gói làm-trọn-cho-bạn: chúng tôi dựng, cài đặt, kết nối, tinh chỉnh — bạn chỉ tham gia buổi audit 60 phút và 2 buổi training. Việc duy nhất của bạn là nhắn tin với nó, như chat với một trợ lý.</p>
+    </details>
+    <details>
+      <summary>Dữ liệu công ty tôi có an toàn không?</summary>
+      <p>Hệ thống chạy trên tài khoản riêng của bạn, tách biệt hoàn toàn với khách khác. Chúng tôi không gom dữ liệu của khách về một chỗ. Sau bàn giao, toàn bộ quyền truy cập thuộc về bạn — kể cả khi ngừng hợp tác, hệ thống vẫn là của bạn.</p>
+    </details>
+    <details>
+      <summary>Có chi phí nào ngoài giá gói không?</summary>
+      <p>Có, và chúng tôi nói trước thay vì để bạn phát hiện sau: chi phí duy trì hệ thống (tài khoản AI của bạn) khoảng vài trăm nghìn mỗi tháng, trả thẳng nhà cung cấp, không qua chúng tôi. Con số chính xác phụ thuộc mức sử dụng, sẽ được tính rõ trong buổi audit.</p>
+    </details>
+    <details>
+      <summary>Khác gì các khóa học "AI Agent cho CEO" giá 8–9 triệu?</summary>
+      <p>Khóa học bán cho bạn kiến thức, rồi bạn tự xây trong 10–12 ngày học và thực hành. Premium bán cho bạn <b>kết quả</b>: hệ thống chạy thật trong 14 ngày mà bạn không tự làm gì cả, kèm cam kết milestone bằng tiền của chúng tôi. Một bên là việc thêm vào lịch của bạn, một bên là việc được nhấc ra khỏi lịch của bạn.</p>
+    </details>
+    <details>
+      <summary>Premium có bao gồm các sản phẩm khác của AI Native Lab không?</summary>
+      <p>Premium gói gọn trong sản phẩm OPC OS — lắp đặt, tune và vận hành cho công ty bạn. Nếu bạn muốn truy cập toàn bộ hệ sinh thái (mọi khóa học, template, công cụ ra mắt trong năm) kèm tư vấn hằng tháng, hãy hỏi về <b>OPC OS Success Club</b> trong buổi demo.</p>
+    </details>
+    <details>
+      <summary>Nếu sau 14 ngày tôi thấy không hợp thì sao?</summary>
+      <p>Cam kết milestone bảo vệ bạn: chưa chạy đủ 3 use case như thống nhất, bạn không trả phần còn lại. Còn sau khi hệ thống đã chạy, bạn có 30–90 ngày đồng hành (tùy gói) để chỉnh đến khi nó thật sự "đúng ý sếp" — đó là phần chúng tôi cho là quan trọng nhất của dự án.</p>
+    </details>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final" id="datlich">
+  <div class="wrap">
+    <h2>Xem nó chạy thật, trước khi quyết định bất cứ điều gì.</h2>
+    <p>Buổi demo 30 phút, miễn phí, trên hệ thống thật của chúng tôi. Nếu sau buổi đó bạn thấy không hợp, bạn vẫn mang về một bức tranh rõ ràng về cách AI có thể vận hành công ty của bạn — không mất gì cả.</p>
+    <a class="cta" href="#" onclick="alert('Gắn link đặt lịch (Calendly/Zalo/Telegram) tại đây');return false">Đặt buổi demo 30 phút</a>
+    <span class="cta-sub">Mỗi đợt chỉ nhận 3 khách triển khai · ưu tiên theo thứ tự đặt lịch</span>
+  </div>
+</div>
+
+<footer>
+  One-Person Company Operating System (OPC OS) · Hệ Điều Hành Công Ty Một Người — vận hành tự động bằng AI · AI Native Lab · info@aiautomationpro.org
+</footer>
+
+</body>
+</html>

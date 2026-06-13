@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEO AI OS — Product Strategy</title>
+<style>
+  :root{
+    --navy:#1a2f55; --blue:#0f4a85; --light:#EDF3FA; --line:#d6dfeb;
+    --gray:#555; --accent:#c44a22; --hot:#fff7ef; --ok:#176b41; --okbg:#eaf5ee;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+    color:#1a1a1a; background:#f4f6fa; line-height:1.5;
+    font-size:16px; padding:32px 16px 64px;
+  }
+  .wrap{max-width:1000px; margin:0 auto}
+
+  header{text-align:center; margin-bottom:24px}
+  h1{color:var(--navy); font-size:40px; letter-spacing:-.5px}
+  .tagline{color:var(--navy); font-size:18px; font-weight:600; margin-top:8px}
+  .sub{color:#444; font-size:15px; margin-top:8px; max-width:640px; margin-left:auto; margin-right:auto}
+  .pill{display:inline-flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:12px}
+  .pill span{background:var(--navy); color:#fff; font-size:13px; font-weight:700; padding:5px 12px; border-radius:20px}
+  .pill span.alt{background:var(--accent)}
+  .meta{color:#888; font-size:13px; margin-top:10px}
+
+  section{background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin-bottom:16px}
+  h2{color:var(--blue); font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; font-weight:800}
+  .lead{font-size:20px; font-weight:800; color:var(--navy); margin-bottom:16px; letter-spacing:-.3px}
+  .note{font-size:13px; color:var(--gray); margin-top:12px}
+  .note b{color:var(--navy)}
+
+  /* numbered pain/feature cards */
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:12px}
+  .c{background:var(--light); border-radius:12px; padding:15px 16px 15px 52px; position:relative}
+  .c .n{position:absolute; left:14px; top:14px; width:26px; height:26px; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center}
+  .c h4{color:var(--navy); font-size:16px; margin-bottom:5px; line-height:1.3}
+  .c p{font-size:13.5px; color:#444}
+  .c .sol{display:block; margin-top:7px; font-size:13.5px; font-weight:700; color:var(--ok)}
+  .c.star{background:#fff3e8}
+  .c.star .n{background:var(--accent)}
+
+  .outcome{background:var(--navy); color:#fff; border-radius:12px; padding:16px 20px; margin-top:14px; font-size:16px}
+  .outcome b{color:#ffd28a}
+
+  /* personas 2-col */
+  .duo{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .pers{border:1px solid var(--line); border-radius:12px; padding:16px 18px}
+  .pers.a{border-top:4px solid var(--navy)}
+  .pers.b{border-top:4px solid var(--blue)}
+  .pers h3{color:var(--navy); font-size:18px}
+  .pers .badge{font-size:12px; font-weight:800; padding:2px 9px; border-radius:12px; vertical-align:middle; margin-left:6px}
+  .a .badge{background:var(--navy); color:#fff}
+  .b .badge{background:var(--blue); color:#fff}
+  .pers .who{font-size:13px; color:var(--gray); margin:6px 0 12px}
+  .pers ul{list-style:none}
+  .pers li{font-size:14px; margin:9px 0; padding-left:14px; position:relative}
+  .pers li::before{content:""; position:absolute; left:0; top:8px; width:6px; height:6px; border-radius:50%; background:var(--accent)}
+  .pers li b{color:var(--navy)}
+  .pers li .s{color:var(--ok); font-weight:600}
+  .msg{font-size:13.5px; font-style:italic; color:var(--navy); margin-top:12px; border-top:1px dashed var(--line); padding-top:10px}
+  .kem{font-size:12.5px; color:var(--gray); margin-top:8px}
+  .kem b{color:var(--navy)}
+
+  /* vs split */
+  .vs{background:var(--navy); border:none}
+  .vs h2{color:#9cc0ec}
+  .vs .lead{color:#fff}
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .col{border-radius:12px; padding:16px 18px}
+  .col.old{background:#27406b}
+  .col.new{background:#0e5a3a}
+  .col .t{font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; margin-bottom:10px}
+  .col.old .t{color:#a8b9d6}
+  .col.new .t{color:#9ee3bf}
+  .col ul{list-style:none}
+  .col li{color:#fff; font-size:14px; margin:8px 0; padding-left:20px; position:relative}
+  .col.old li::before{content:"✕"; position:absolute; left:0; color:#ff9b7a; font-weight:800}
+  .col.new li::before{content:"✓"; position:absolute; left:0; color:#7ff0b6; font-weight:800}
+
+  /* differentiator rows */
+  .diff{display:flex; flex-direction:column; gap:10px}
+  .drow{display:grid; grid-template-columns:220px 1fr; gap:12px; align-items:center; border:1px solid var(--line); border-radius:10px; padding:12px 14px}
+  .drow .hl{font-weight:800; color:var(--navy); font-size:15px}
+  .drow .moat{display:inline-block; font-size:10.5px; background:var(--accent); color:#fff; font-weight:800; padding:2px 7px; border-radius:10px; margin-top:5px; letter-spacing:.4px}
+  .drow .cmp{font-size:13.5px}
+  .drow .cmp .o{color:#a23; }
+  .drow .cmp .u{color:var(--ok); font-weight:700}
+
+  /* waves + guard chips */
+  .wave{background:var(--light); border-radius:10px; padding:12px 16px; font-size:14.5px; margin-bottom:8px}
+  .wave .tag{color:var(--accent); font-weight:800; margin-right:6px}
+  .wave b{color:var(--navy)}
+  .guard{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:10px}
+  .gcard{background:var(--hot); border:1px dashed var(--accent); border-radius:10px; padding:12px 14px; font-size:13.5px}
+  .gcard b{color:var(--accent); display:block; margin-bottom:4px; font-size:14px}
+
+  /* ladder */
+  .tier{display:grid; grid-template-columns:240px 1fr; border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:7px}
+  .side{background:var(--light); padding:12px 14px; border-right:1px solid var(--line)}
+  .step{font-size:11.5px; font-weight:800; color:var(--blue); text-transform:uppercase; letter-spacing:.3px}
+  .name{font-weight:800; color:var(--navy); font-size:18px; margin:3px 0; line-height:1.2}
+  .price{font-size:18px; font-weight:800; color:var(--accent)}
+  .desc{padding:12px 16px; font-size:13.5px; color:#333; align-self:center}
+  .tier.hot{border:2px solid var(--accent)}
+  .tier.hot .side{background:var(--accent)}
+  .tier.hot .step{color:#ffe0cf}
+  .tier.hot .name{color:#fff}
+  .tier.hot .price{color:#fff; font-size:22px}
+  .tier.dim .side{background:#f3f5f8}
+  .tier.dim .name{font-size:16px}
+  .arrow{text-align:center; color:#b3bccc; font-size:13px; margin:1px 0 5px}
+
+  /* sell mechanics chips */
+  .mgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px}
+  .m{background:var(--light); border-radius:10px; padding:12px 14px; font-size:13.5px}
+  .m b{color:var(--navy); display:block; margin-bottom:3px}
+  .m .ok{color:var(--ok); font-weight:700}
+
+  /* timeline */
+  .timeline{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  .tl{border:1px solid var(--line); border-radius:12px; padding:14px 16px; position:relative}
+  .tl .when{font-size:13px; font-weight:800; color:#fff; background:var(--blue); display:inline-block; padding:3px 12px; border-radius:14px; margin-bottom:8px}
+  .tl.now .when{background:var(--accent)}
+  .tl p{font-size:13.5px; color:#333}
+  .tl b{color:var(--navy)}
+
+  ol.tech{list-style:none; counter-reset:t}
+  ol.tech li{counter-increment:t; margin:8px 0; padding-left:30px; text-indent:-30px; font-size:13.5px; color:#333}
+  ol.tech li::before{content:counter(t) ". "; font-weight:800; color:var(--blue)}
+  ol.tech li b{color:var(--navy)}
+
+  .rule{background:var(--hot); border:1px dashed var(--accent); border-radius:10px; padding:12px 16px; font-size:13.5px}
+  .rule b{color:var(--accent)}
+
+  @media(max-width:720px){
+    .duo,.split,.timeline{grid-template-columns:1fr}
+    .drow{grid-template-columns:1fr}
+    .tier{grid-template-columns:1fr}.side{border-right:none;border-bottom:1px solid var(--line)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>CEO AI OS</h1>
+    <p class="tagline">Hệ điều hành vận hành doanh nghiệp bằng AI — một phiên bản digital của chính bạn.</p>
+    <p class="sub">Mang kỹ năng của bạn · tự tiến hóa cùng bạn · điều hành cùng bạn qua dàn Agent phòng ban 24/7 giao tiếp bằng chat.</p>
+    <div class="pill"><span>Tăng doanh thu</span><span>Tăng năng suất</span><span class="alt">Không cần team đông</span></div>
+    <p class="meta">Product Strategy · Tài liệu nội bộ · AI Native Lab · rev 13/06/2026</p>
+  </header>
+
+  <section>
+    <h2>Nỗi đau lõi · 6 trụ cột</h2>
+    <p class="lead">Càng loạn, càng cần AI — bắt đầu từ nỗi đau của CEO.</p>
+    <div class="cards">
+      <div class="c"><div class="n">1</div><h4>Thiếu bức tranh toàn cảnh</h4><p>Ra quyết định trong mù mờ — không có màn hình hợp nhất cho vận hành, tài chính, thị trường.</p><span class="sol">→ Dashboard CEO: gom internal + external, brief liên tục. <b>(Ưu tiên #1)</b></span></div>
+      <div class="c"><div class="n">2</div><h4>CEO là cổ chai, chưa có quy trình</h4><p>Mọi việc chờ duyệt; không workflow nên không giao việc, không scale.</p><span class="sol">→ Dựng &amp; vận hành workflow, điều phối, giao việc thay.</span></div>
+      <div class="c"><div class="n">3</div><h4>Dữ liệu tản mát</h4><p>Rải khắp Drive/Slack/file riêng, nhiều version; AI không đọc được, người không tìm ra.</p><span class="sol">→ Connect + index mọi nguồn, cảnh báo thay đổi.</span></div>
+      <div class="c"><div class="n">4</div><h4>Thiếu năng lực thực thi</h4><p>Team nhỏ, khối việc khổng lồ, không đủ người/tiền để tuyển.</p><span class="sol">→ Dàn agent = thêm năng lực, làm nhiều hơn với nguồn lực hiện có.</span></div>
+      <div class="c"><div class="n">5</div><h4>Việc thủ công, lặp lại, không đúng ý</h4><p>Việc chiến lược ít, linh tinh nhiều; AI làm "không giống mình".</p><span class="sol">→ Digital Twin mang skill &amp; giọng của bạn, làm đúng ý dần.</span></div>
+      <div class="c"><div class="n">6</div><h4>Không biết bắt đầu với AI từ đâu</h4><p>Biết AI quan trọng, FOMO đủ tool, không biết biến thành tiền.</p><span class="sol">→ Setup vài tiếng + ban cố vấn AI dẫn đường.</span></div>
+    </div>
+    <div class="outcome">Outcome khách thật sự mua: <b>doanh thu tăng, rồi năng suất tăng</b> — không phải thêm một con bot lẻ.</div>
+    <p class="note"><b>Chiến lược thông điệp:</b> CEO-first — A (CEO SME) là tâm; B (solopreneur) ăn theo "mình cũng là CEO của chính mình".</p>
+  </section>
+
+  <section>
+    <h2>Khách hàng mục tiêu</h2>
+    <p class="lead">Hai chân dung, một thông điệp.</p>
+    <div class="duo">
+      <div class="pers a">
+        <h3>CEO doanh nghiệp SME <span class="badge">TÂM ĐIỂM</span></h3>
+        <p class="who">35–55t · công ty 5–50 người · đau ở <b>thời gian &amp; sự tin cậy</b>, không phải tiền.</p>
+        <ul>
+          <li><b>Bức tranh toàn cảnh</b> — <span class="s">bộ não công ty, brief mỗi sáng, theo dõi thị trường.</span></li>
+          <li><b>Cổ chai &amp; quy trình</b> — <span class="s">điều phối, giám sát, dựng workflow.</span></li>
+          <li><b>Dữ liệu &amp; version</b> — <span class="s">index một mối, cảnh báo thay đổi.</span></li>
+          <li><b>Thiếu nguồn lực thực thi</b> — <span class="s">agent gánh việc, "cùng một đội, ra nhiều hơn".</span></li>
+          <li><b>Tài chính</b> — <span class="s">bức tranh tài chính khi có data chuẩn, nhắc công nợ.</span></li>
+          <li><b>Bắt đầu với AI</b> — <span class="s">bàn giao trọn gói + Mentor đồng hành.</span></li>
+        </ul>
+        <p class="kem"><b>Bán kèm:</b> knowledge base kế thừa · giám sát chất lượng · CSKH/Digital Selling 24/7 · quản lý đội nhóm.</p>
+        <p class="msg">"Cùng một đội, ra nhiều doanh thu hơn — không phải tuyển thêm người."</p>
+      </div>
+      <div class="pers b">
+        <h3>Solopreneur / Solo CEO <span class="badge">ĂN THEO</span></h3>
+        <p class="who">28–45t · coach/online/freelancer · 20–150tr/th, đổi bằng <b>toàn bộ thời gian</b>.</p>
+        <ul>
+          <li><b>Trần giờ</b> — <span class="s">gánh việc lặp + follow-up tự động.</span></li>
+          <li><b>Một mình gánh mọi vai</b> — <span class="s">gánh admin, lọc khách, chuẩn hóa quy trình.</span></li>
+          <li><b>Marketing &amp; content</b> — <span class="s">Digital Twin viết đúng giọng, ra bài đều.</span></li>
+          <li><b>Bán hàng &amp; đòn bẩy</b> — <span class="s">Digital Selling + đóng gói sản phẩm số.</span></li>
+          <li><b>Hệ thống cá nhân</b> — <span class="s">"bộ não thứ hai", index, nhắc lịch.</span></li>
+          <li><b>Tài chính &amp; cô đơn</b> — <span class="s">tách dòng tiền + ban cố vấn AI phản biện.</span></li>
+        </ul>
+        <p class="kem"><b>Bán kèm:</b> đóng gói khóa học/ebook · kịch bản tư vấn &amp; báo giá · định giá theo giá trị · đặt lịch.</p>
+        <p class="msg">"Bạn không cần thêm khóa học AI. Bạn cần một bộ máy tự chạy ra tiền."</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="vs">
+    <h2>Vì sao không chỉ là ChatGPT?</h2>
+    <p class="lead">Hầu hết CEO đã dùng AI — nhưng mới dừng ở chat, chưa ra doanh thu.</p>
+    <div class="split">
+      <div class="col old"><div class="t">ChatGPT / bot lẻ</div>
+        <ul>
+          <li>Mất trí nhớ mỗi sáng</li>
+          <li>Chỉ làm khi bạn ngồi gõ</li>
+          <li>Mỗi project dựng lại từ đầu</li>
+          <li>Chỉ trả lời trong khung chat</li>
+        </ul>
+      </div>
+      <div class="col new"><div class="t">CEO AI OS</div>
+        <ul>
+          <li>Nhớ mọi quyết định, liên thông context</li>
+          <li>Chủ động 24/7</li>
+          <li>Hành động thật: viết, đăng, dựng landing, tạo ảnh/video</li>
+          <li>Tiến hóa cùng bạn — không phải train lại</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tính năng chính</h2>
+    <p class="lead">Một phòng ban AI đầy đủ trong một hệ điều hành.</p>
+    <div class="cards">
+      <div class="c star"><div class="n">★</div><h4>Digital Twin (song sinh số)</h4><p>Phiên bản số mang skill &amp; giọng của bạn; train trong lúc làm, edit file cho bạn.</p></div>
+      <div class="c"><div class="n">2</div><h4>Dashboard CEO</h4><p>Gom KPI, tiến độ, tài chính + thị trường, đối thủ; brief điều hành liên tục.</p></div>
+      <div class="c"><div class="n">3</div><h4>Agent phòng ban 24/7</h4><p>Điều phối &amp; thao tác thật qua chat; CEO vắng vẫn nhận báo cáo "việc này cần anh quyết".</p></div>
+      <div class="c"><div class="n">4</div><h4>Ban cố vấn AI</h4><p>Business + AI Mentor đóng vai hội đồng cố vấn (mastermind).</p></div>
+      <div class="c"><div class="n">5</div><h4>Index &amp; đồng bộ dữ liệu</h4><p>Connect Drive/Slack/GitHub; cron quét, file index tổng, notify thay đổi.</p></div>
+      <div class="c"><div class="n">6</div><h4>Tự động hóa + Knowledge base</h4><p>Bóc task, nhắc hạn, follow-up; quy trình ở lại khi nhân sự rời đi.</p></div>
+      <div class="c"><div class="n">7</div><h4>Bộ skill production cao</h4><p>Viết viral 3 giọng · đăng đa nền tảng · landing/ảnh/video · Digital Selling.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Điểm đặc biệt · vì sao hơn đối thủ</h2>
+    <p class="lead">Ta có "tay chân" và trí nhớ — đối thủ chỉ có não.</p>
+    <div class="diff">
+      <div class="drow"><div><span class="hl">Tiến hóa cùng bạn</span><br><span class="moat">MOAT</span></div><div class="cmp"><span class="o">✕ Đối thủ: AI mất trí nhớ mỗi phiên, phải train lại.</span><br><span class="u">✓ Ta: học &amp; nâng cấp ngay trong lúc làm việc.</span></div></div>
+      <div class="drow"><div><span class="hl">Có tay chân — hành động thật</span><br><span class="moat">MOAT</span></div><div class="cmp"><span class="o">✕ Đối thủ: dừng ở chatbot Q&amp;A.</span><br><span class="u">✓ Ta: thực thi &amp; điều hành cùng bạn.</span></div></div>
+      <div class="drow"><div><span class="hl">Liên thông &amp; tập trung hóa</span><br><span class="moat">MOAT</span></div><div class="cmp"><span class="o">✕ Đối thủ: mỗi project rời rạc, dựng lại từ đầu.</span><br><span class="u">✓ Ta: context liên thông → mạnh &amp; nhanh hơn.</span></div></div>
+      <div class="drow"><div><span class="hl">Chạy trong vài tiếng</span></div><div class="cmp"><span class="o">✕ Đối thủ: khóa 3–14 ngày, bắt tự ráp.</span><br><span class="u">✓ Ta: một câu lệnh là chạy, ứng dụng được ngay.</span></div></div>
+      <div class="drow"><div><span class="hl">Chất lượng production độc quyền</span></div><div class="cmp"><span class="o">✕ Đối thủ: skill trôi nổi, chất lượng kém.</span><br><span class="u">✓ Ta: skill đội dồn chất xám, cập nhật liên tục.</span></div></div>
+      <div class="drow"><div><span class="hl">Đồng hành tới kết quả + cộng đồng</span></div><div class="cmp"><span class="o">✕ Đối thủ: bán xong là xong.</span><br><span class="u">✓ Ta: training, mentor, pay-for-results, cộng đồng CEO.</span></div></div>
+    </div>
+    <p class="note"><b>Cảnh báo:</b> lợi thế chỉ phát huy khi hệ thống khách mở/tích hợp được; ưu tiên nhắm khách dùng hệ mở.</p>
+  </section>
+
+  <section>
+    <h2>Định vị &amp; sóng</h2>
+    <div class="wave"><span class="tag">SÓNG CHÍNH</span><b>"CEO AI OS — hệ điều hành AI dành cho CEO"</b></div>
+    <div class="wave"><span class="tag">SÓNG PHỤ</span><b>"Second Brain"</b> &amp; <b>"One Person Company"</b> — bắt sóng có sẵn để dẫn về sóng chính.</div>
+    <div class="wave"><span class="tag">QUY TẮC</span>Không dẫn dắt bằng kỹ thuật — nói "một phiên bản digital của bạn", không nói tên engine.</div>
+  </section>
+
+  <section>
+    <h2>Guardrail thông điệp</h2>
+    <div class="guard">
+      <div class="gcard"><b>Hứa hẹn vừa đủ</b>OS hỗ trợ phân tích khi có data chính xác — không tự "biết lời lỗ" thay bạn.</div>
+      <div class="gcard"><b>Tăng năng suất, không thay người</b>Tránh giọng "AI đe dọa việc làm".</div>
+      <div class="gcard"><b>Khung lại chuyện token</b>Trade-off: đánh đổi token lấy thời gian &amp; năng lực thực thi.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Thang offer</h2>
+    <p class="lead">Phễu rẻ trước → up-sale dần → chốt ở Full Set.</p>
+    <div class="rule" style="margin-bottom:14px"><b>Chốt 13/06:</b> gộp 3 tầng cao cũ (Pro 30 / Companion 70 / Companion 100) thành <b>một gói Full Set</b> — niêm yết 100tr → bán 70tr. Chi tiết chốt sau dogfooding. T0–T3 giữ nguyên để dẫn phễu.</div>
+
+    <div class="tier"><div class="side"><div class="step">T0 · Lead magnet</div><div class="name">Free</div><div class="price">0đ</div></div>
+      <div class="desc">PDF cài đặt + tips, ebook/template, webinar (replay làm proof). Vào phễu, "học dần" nhu cầu.</div></div>
+    <div class="arrow">↓</div>
+    <div class="tier"><div class="side"><div class="step">T1 · DIY low-ticket</div><div class="name">Engine Pack</div><div class="price">250k</div></div>
+      <div class="desc">PDF guide + workflow áp dụng ngay (research → báo cáo → PDF).</div></div>
+    <div class="arrow">↓</div>
+    <div class="tier"><div class="side"><div class="step">T2 · chốt volume</div><div class="name">Starter</div><div class="price">500k</div></div>
+      <div class="desc">1-click distribution; group + topic phòng ban; default skill Google Workspace; access tự động.</div></div>
+    <div class="arrow">↓</div>
+    <div class="tier"><div class="side"><div class="step">T2+ · Add-on</div><div class="name">Starter Plus</div><div class="price">2tr</div></div>
+      <div class="desc">Startup kit; bộ "31 skills"; AI Mentor + 3 Business Mentor; PDF + video.</div></div>
+    <div class="arrow">↓</div>
+    <div class="tier"><div class="side"><div class="step">T3 · có human</div><div class="name">Workshop</div><div class="price">4tr</div></div>
+      <div class="desc">Offline 20 người/đợt, gồm T2+, nhóm support. "Cầm tay chỉ việc".</div></div>
+    <div class="arrow">↓</div>
+    <div class="tier hot"><div class="side"><div class="step">★ T4 · GÓI CHỐT · niêm yết 100tr</div><div class="name">Full Set</div><div class="price">70tr</div></div>
+      <div class="desc"><b>Nhồi tất cả những gì làm được:</b> full setup phòng ban · workflow + system hóa dữ liệu · Digital Twin tuned · ban cố vấn · persona + phân quyền · Agent team + tích hợp CRM/Sheets · training · đồng hành tới kết quả.</div></div>
+    <div class="arrow">↓</div>
+    <div class="tier dim"><div class="side"><div class="step">Continuity</div><div class="name">Membership</div><div class="price">$5/th</div></div>
+      <div class="desc">Khóa học, recording, template, chat riêng. <i>Dài hạn — launch sau.</i></div></div>
+    <div class="arrow">↓</div>
+    <div class="tier dim"><div class="side"><div class="step">Đỉnh thang</div><div class="name">Success Club</div><div class="price">200tr/năm</div></div>
+      <div class="desc">All-access + ưu tiên hỗ trợ + monthly consulting; bán 1-1. <i>Dài hạn — launch sau.</i></div></div>
+  </section>
+
+  <section>
+    <h2>Cơ chế bán</h2>
+    <div class="mgrid">
+      <div class="m"><b>Up/down-sale</b>T1 PDF → video → T3 workshop → T4 Full Set; gói rẻ hơn khi khách ngần ngại.</div>
+      <div class="m"><b>Credit ladder</b>Cấn trừ phần đã mua khi lên gói (250k→T2 · 500k→T3 · 2–4tr→Full Set).</div>
+      <div class="m"><b>Không overload</b>Bán cái rẻ nhất trước; khách tự nhận ra nhu cầu rồi lên gói.</div>
+      <div class="m"><b>Tự động hóa</b>T0/T1/T2 giao 100% qua email; có human từ T3.</div>
+      <div class="m"><b>Giá trị lõi Full Set</b>Know-how setup workflow + system hóa dữ liệu (phần "ăn tiền").</div>
+      <div class="m"><b>Lead nóng</b>Ông Maxi — làm 1 khách ~70tr để hoàn thiện nội dung Full Set.</div>
+      <div class="m"><b>Guarantee</b><span class="ok">T2</span> không chạy 24h → hoàn 100% · <span class="ok">T3</span> chưa chạy → hoàn 100%.</div>
+      <div class="m"><b>Skill bán lẻ</b>~500k–1tr/bộ — justify giá gói &amp; làm down-sell.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Lộ trình ra mắt</h2>
+    <div class="timeline">
+      <div class="tl now"><span class="when">Hôm nay</span><p>Update offer → để qua đêm → chiều tối review → ưng mới dựng landing. Tối: onboard <b>Giang</b> (marketing intern).</p></div>
+      <div class="tl"><span class="when">Thứ Tư</span><p><b>Webinar giới thiệu AIOS</b> (Sisu trình bày) — bán ngay trong webinar.</p></div>
+      <div class="tl"><span class="when">Cuối tuần</span><p><b>Workshop đầu tiên</b> + <b>landing page Full Set</b> xong, gửi cho leads.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Lõi kỹ thuật <span style="font-weight:600;text-transform:none;letter-spacing:0;color:#999">(phụ lục — không đưa vào copy khách)</span></h2>
+    <ol class="tech">
+      <li><b>Hermes</b> — engine điều phối Agent. <b>9Router</b> — định tuyến model, tối ưu chi phí. <b>Telegram</b> — giao diện vận hành.</li>
+      <li><b>Skills</b> — Google Workspace mặc định; "31 skills"; human-writing 3 giọng; skill độc quyền; (đang dựng) skill index dữ liệu.</li>
+      <li><b>VPS:</b> Contabo = production lâu dài; Hetzner = server test (trả theo giờ, tạo–dùng–xóa). Bật backup + cấm xóa file; ưu tiên xong sản phẩm trước, scale sau.</li>
+      <li><b>Memory layer</b> (hoãn, song song) — memo + skill Obsidian quản lý memory, tránh tràn/quên khi làm việc dài.</li>
+    </ol>
+  </section>
+
+  <div class="rule"><b>Quy tắc copy khách:</b> không nhắc Hermes / 9Router / Telegram / VPS / repo — dùng ngôn ngữ business. Bản này là tài liệu nội bộ.</div>
+
+</div>
+</body>
+</html>
