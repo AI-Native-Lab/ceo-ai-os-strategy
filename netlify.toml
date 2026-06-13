@@ -1,0 +1,11 @@
+# Netlify build config — site: ceo-ai-os-strategy
+#
+# CONFIDENTIALITY: this repo holds internal strategy docs (the *.md files and
+# everything in archive/). To keep them private, the build publishes ONLY the
+# polished HTML deck, copied into ./dist as index.html. Nothing else in the
+# repo reaches the public CDN — the rest lives only in the (ephemeral) build
+# container and in the private GitHub repo.
+
+[build]
+  publish = "dist"
+  command = "mkdir -p dist && cp 'CEO AI OS Product Strategy.html' dist/index.html"

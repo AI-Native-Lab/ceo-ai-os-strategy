@@ -1,2 +1,4 @@
 .DS_Store
 _netlify_deploy/
+.netlify/
+dist/
