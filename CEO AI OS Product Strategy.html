@@ -112,6 +112,13 @@
   .tier.dim .side{background:#f3f5f8}
   .tier.dim .name{font-size:16px}
   .arrow{text-align:center; color:#b3bccc; font-size:13px; margin:1px 0 5px}
+  .desc ul{list-style:none; margin:0}
+  .desc li{font-size:13px; line-height:1.4; margin:3px 0; padding-left:14px; position:relative}
+  .desc li::before{content:"›"; position:absolute; left:2px; color:var(--accent); font-weight:800}
+  .desc li b{color:var(--navy)}
+  .tnote{font-size:11.5px; color:var(--gray); margin-top:7px; border-top:1px dashed var(--line); padding-top:5px}
+  .tnote b{color:var(--ok)}
+  .tier.hot .desc{background:#fff}
 
   /* sell mechanics chips */
   .mgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px}
@@ -272,45 +279,80 @@
 
   <section>
     <h2>Thang offer</h2>
-    <p class="lead">Phễu rẻ trước → up-sale dần → chốt ở Full Set.</p>
-    <div class="rule" style="margin-bottom:14px"><b>Chốt 13/06:</b> gộp 3 tầng cao cũ (Pro 30 / Companion 70 / Companion 100) thành <b>một gói Full Set</b> — niêm yết 100tr → bán 70tr. Chi tiết chốt sau dogfooding. T0–T3 giữ nguyên để dẫn phễu.</div>
+    <p class="lead">Mỗi tầng bán đúng một phần phức tạp đã đóng gói one-click.</p>
+    <div class="rule" style="margin-bottom:14px"><b>Chốt 13/06 — T4 là một gói Full Set 100tr duy nhất, gồm tất cả mọi thứ</b> (bỏ gói 70tr; gộp Pro/Companion cũ). Các tầng T0–T3.5 dẫn phễu, up/down-sale dần lên Full Set; chi tiết chốt lại sau dogfooding.</div>
 
-    <div class="tier"><div class="side"><div class="step">T0 · Lead magnet</div><div class="name">Free</div><div class="price">0đ</div></div>
-      <div class="desc">PDF cài đặt + tips, ebook/template, webinar (replay làm proof). Vào phễu, "học dần" nhu cầu.</div></div>
+    <div class="tier"><div class="side"><div class="step">T0 · Lead magnet</div><div class="name">FREE</div><div class="price">0đ</div></div>
+      <div class="desc"><ul>
+        <li>PDF cài Hermes + tips 9Router · ebook/template · content 70/30</li>
+        <li>Webinar thứ Tư (replay = proof) · free community</li>
+      </ul></div></div>
     <div class="arrow">↓</div>
-    <div class="tier"><div class="side"><div class="step">T1 · DIY low-ticket</div><div class="name">Engine Pack</div><div class="price">250k</div></div>
-      <div class="desc">PDF guide + workflow áp dụng ngay (research → báo cáo → PDF).</div></div>
+    <div class="tier"><div class="side"><div class="step">T1 · DIY</div><div class="name">Engine Pack — Setup Hermes Agent</div><div class="price">250k</div></div>
+      <div class="desc"><ul>
+        <li>PDF Guide: Hermes agent + 9Router + SSH Agent + Telegram topic</li>
+        <li>Update + kênh hỏi đáp &amp; community support</li>
+      </ul><div class="tnote">Trừ 250k khi lên T2</div></div></div>
     <div class="arrow">↓</div>
-    <div class="tier"><div class="side"><div class="step">T2 · chốt volume</div><div class="name">Starter</div><div class="price">500k</div></div>
-      <div class="desc">1-click distribution; group + topic phòng ban; default skill Google Workspace; access tự động.</div></div>
+    <div class="tier"><div class="side"><div class="step">T2 · DIY · gói chốt volume</div><div class="name">CEO AI OS Starter</div><div class="price">500k</div></div>
+      <div class="desc"><ul>
+        <li>1-click setup: distribution "Startup" chứa script set up</li>
+        <li>Hướng dẫn tạo Telegram group + topic phòng ban</li>
+        <li>Default skill: Google Workspace CLI</li>
+      </ul><div class="tnote">Email access tự động sau thanh toán · <b>G:</b> 24h chưa chạy → cài giúp, vẫn không → hoàn 100% · Trừ 500k khi lên T3</div></div></div>
     <div class="arrow">↓</div>
-    <div class="tier"><div class="side"><div class="step">T2+ · Add-on</div><div class="name">Starter Plus</div><div class="price">2tr</div></div>
-      <div class="desc">Startup kit; bộ "31 skills"; AI Mentor + 3 Business Mentor; PDF + video.</div></div>
+    <div class="tier"><div class="side"><div class="step">T2+ · Add-on checkout</div><div class="name">CEO AI OS Starter Plus</div><div class="price">2tr</div></div>
+      <div class="desc"><ul>
+        <li>Startup kit: offer · customer persona · customer journey · business development</li>
+        <li>Bộ skill "31 skills for small business" (Anthropic) — gồm human-writing 3 giọng văn</li>
+        <li>AI Mentor + 3 Business Mentor · PDF + tutorial video</li>
+      </ul><div class="tnote">Trừ 2tr khi lên Pro</div></div></div>
     <div class="arrow">↓</div>
-    <div class="tier"><div class="side"><div class="step">T3 · có human</div><div class="name">Workshop</div><div class="price">4tr</div></div>
-      <div class="desc">Offline 20 người/đợt, gồm T2+, nhóm support. "Cầm tay chỉ việc".</div></div>
+    <div class="tier"><div class="side"><div class="step">T3 · Hands-on · tầng đầu có human</div><div class="name">CEO AI OS Workshop</div><div class="price">4tr</div></div>
+      <div class="desc"><ul>
+        <li>Hỗ trợ set up + education + dạy add skill + dùng hiệu quả</li>
+        <li>Offline · 20 người/đợt · <b>bao gồm T2+</b> · nhóm Telegram support sau workshop</li>
+      </ul><div class="tnote"><b>G:</b> ra về chưa chạy → hoàn 100% · Downsell: recording + Q&amp;A 500k · Trừ 4tr khi lên Full Set</div></div></div>
     <div class="arrow">↓</div>
-    <div class="tier hot"><div class="side"><div class="step">★ T4 · GÓI CHỐT · niêm yết 100tr</div><div class="name">Full Set</div><div class="price">70tr</div></div>
-      <div class="desc"><b>Nhồi tất cả những gì làm được:</b> full setup phòng ban · workflow + system hóa dữ liệu · Digital Twin tuned · ban cố vấn · persona + phân quyền · Agent team + tích hợp CRM/Sheets · training · đồng hành tới kết quả.</div></div>
+    <div class="tier"><div class="side"><div class="step">T3.5 · Done-with-you</div><div class="name">CEO AI OS Pro</div><div class="price">30tr</div></div>
+      <div class="desc"><ul>
+        <li>2 buổi online call cài cùng + tune theo doanh nghiệp (2h/buổi)</li>
+        <li>Agent phòng ban đúng cơ cấu · 3 use case (2 define + 1 khách) · 14 ngày đồng hành</li>
+      </ul><div class="tnote"><b>G:</b> use case không đạt trong 14 ngày → +30 ngày hỗ trợ · Trừ 30tr khi lên Full Set</div></div></div>
     <div class="arrow">↓</div>
-    <div class="tier dim"><div class="side"><div class="step">Continuity</div><div class="name">Membership</div><div class="price">$5/th</div></div>
-      <div class="desc">Khóa học, recording, template, chat riêng. <i>Dài hạn — launch sau.</i></div></div>
+    <div class="tier hot"><div class="side"><div class="step">★ T4 · Done-for-you · GÓI CHỐT · Full Set</div><div class="name">CEO AI OS Full Set — có tất cả</div><div class="price">100tr</div></div>
+      <div class="desc"><ul>
+        <li>Full setup phòng ban chuẩn · 5 use case (3 define + 2 khách)</li>
+        <li>Digital Twin/Mentor AI tuned · training 2 buổi · skill &amp; workflow advanced · 30 ngày tối ưu</li>
+        <li>Xây workflow + system hóa dữ liệu cho khách (phần "ăn tiền")</li>
+        <li>Governance/phân quyền cho đội nhóm · persona từng thành viên · Agent team</li>
+        <li>Tích hợp công cụ đang dùng (CRM/Sheets/web nội bộ)</li>
+        <li>Auto dev tool: dev nội bộ tự tạo tool, tự cải thiện Hermes · retainer 3 tháng</li>
+      </ul><div class="tnote">Một gói duy nhất gồm <b>tất cả mọi thứ</b> · mục tiêu ~3 khách/tháng</div></div></div>
     <div class="arrow">↓</div>
-    <div class="tier dim"><div class="side"><div class="step">Đỉnh thang</div><div class="name">Success Club</div><div class="price">200tr/năm</div></div>
-      <div class="desc">All-access + ưu tiên hỗ trợ + monthly consulting; bán 1-1. <i>Dài hạn — launch sau.</i></div></div>
+    <div class="tier dim"><div class="side"><div class="step">Continuity · monthly</div><div class="name">Membership</div><div class="price">129k/th</div></div>
+      <div class="desc"><ul>
+        <li>Khóa học member · kho recording · template/PDF hằng tháng · chat riêng · giảm giá sản phẩm</li>
+      </ul><div class="tnote">Launch 1 gói trước, 3 tier là roadmap · hủy bất cứ lúc nào · <i>launch sau khi Full Set ổn</i></div></div></div>
+    <div class="arrow">↓</div>
+    <div class="tier dim"><div class="side"><div class="step">Đỉnh thang · yearly</div><div class="name">Success Club</div><div class="price">200tr/năm</div></div>
+      <div class="desc"><ul>
+        <li>All-access toàn hệ sinh thái AI Native Lab + ưu tiên hỗ trợ + monthly consulting</li>
+      </ul><div class="tnote">Bán 1-1 sau demo/Full Set, không đại trà</div></div></div>
+    <p class="note" style="margin-top:10px"><b>Đang cân nhắc:</b> add-on Managed Hosting + API — tính sau.</p>
   </section>
 
   <section>
     <h2>Cơ chế bán</h2>
     <div class="mgrid">
-      <div class="m"><b>Up/down-sale</b>T1 PDF → video → T3 workshop → T4 Full Set; gói rẻ hơn khi khách ngần ngại.</div>
-      <div class="m"><b>Credit ladder</b>Cấn trừ phần đã mua khi lên gói (250k→T2 · 500k→T3 · 2–4tr→Full Set).</div>
+      <div class="m"><b>Credit ladder</b>250k→T2 · 500k→T3 · T2+ 2tr→Pro · T3 4tr→Full Set · Pro 30tr→Full Set (cấn trừ phần đã mua).</div>
+      <div class="m"><b>Up/down-sale</b>T1 PDF → video → T3 workshop → Full Set; upsell trượt → gói rẻ hơn / membership / skill lẻ.</div>
       <div class="m"><b>Không overload</b>Bán cái rẻ nhất trước; khách tự nhận ra nhu cầu rồi lên gói.</div>
-      <div class="m"><b>Tự động hóa</b>T0/T1/T2 giao 100% qua email; có human từ T3.</div>
-      <div class="m"><b>Giá trị lõi Full Set</b>Know-how setup workflow + system hóa dữ liệu (phần "ăn tiền").</div>
-      <div class="m"><b>Lead nóng</b>Ông Maxi — làm 1 khách ~70tr để hoàn thiện nội dung Full Set.</div>
-      <div class="m"><b>Guarantee</b><span class="ok">T2</span> không chạy 24h → hoàn 100% · <span class="ok">T3</span> chưa chạy → hoàn 100%.</div>
+      <div class="m"><b>Tự động hóa</b>T0/T1/T2 giao 100% qua email (PDF + video quay sẵn); có human từ T3.</div>
+      <div class="m"><b>Support 2 mức</b>Community support (nhóm Telegram người mua) vs full support (trả phí riêng).</div>
       <div class="m"><b>Skill bán lẻ</b>~500k–1tr/bộ — justify giá gói &amp; làm down-sell.</div>
+      <div class="m"><b>Guarantee theo tầng</b><span class="ok">T2</span> không chạy 24h → hoàn 100% · <span class="ok">T3</span> chưa chạy → hoàn 100% · <span class="ok">Pro</span> không đạt use case 14 ngày → +30 ngày.</div>
+      <div class="m"><b>Lead nóng</b>Ông Maxi — làm 1 khách Full Set để hoàn thiện nội dung gói.</div>
     </div>
   </section>
 
